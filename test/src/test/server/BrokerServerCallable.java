@@ -8,10 +8,13 @@ public class BrokerServerCallable implements Callable<BrokerServerCallableData> 
 	
 	private BrokerServerCallableData brokerServerCallableData;
 	private String configFileRealPath = "";
+	private boolean startOnCall = false;
+	private String exceptionMessage = "";
 	
-	public BrokerServerCallable(String configFileRealPath) {
+	public BrokerServerCallable(String configFileRealPath, boolean startOnCall) {
 		super();
 		this.configFileRealPath = configFileRealPath;
+		this.startOnCall = startOnCall;
 	}
 
 	@Override
@@ -22,12 +25,39 @@ public class BrokerServerCallable implements Callable<BrokerServerCallableData> 
 		}
 		this.brokerServerCallableData = new BrokerServerCallableData();
 		this.brokerServerCallableData.setConfigFile(configFile);
-		try {
-			this.brokerServerCallableData.start();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (this.startOnCall) {
+			try {
+				this.brokerServerCallableData.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+				this.exceptionMessage = e.getMessage().toString();
+			}			
 		}
 		return this.brokerServerCallableData;
+	}
+
+	public String getConfigFileRealPath() {
+		return configFileRealPath;
+	}
+
+	public void setConfigFileRealPath(String configFileRealPath) {
+		this.configFileRealPath = configFileRealPath;
+	}
+
+	public boolean isStartOnCall() {
+		return startOnCall;
+	}
+
+	public void setStartOnCall(boolean startOnCall) {
+		this.startOnCall = startOnCall;
+	}
+
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
 	}
 
 }

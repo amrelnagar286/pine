@@ -22,9 +22,10 @@ public class TestBrokerServer {
 		ExecutorService bsCalculationPool = Executors.newFixedThreadPool( 1 );			
 		for (String config : configs) {
 			BrokerServerCallableData bsData = new BrokerServerCallableData();
-			bsData = bsCalculationPool.submit( new BrokerServerCallable(config) ).get();
+			bsData = bsCalculationPool.submit( new BrokerServerCallable(config, true) ).get();
 			bsList.add(bsData);
 			System.out.println( "load config: " + config );
+			//bsData.start(); // BrokerServerCallable(config, false)
 		}
 		System.out.println("===============================================");
 		
