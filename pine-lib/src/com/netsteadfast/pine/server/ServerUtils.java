@@ -19,8 +19,8 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.pine.broker;
+package com.netsteadfast.pine.server;
 
-public class BrokerUtils {
+public class ServerUtils {
 
 }
