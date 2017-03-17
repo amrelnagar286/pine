@@ -24,12 +24,14 @@ package com.netsteadfast.pine.server;
 import java.io.File;
 import java.io.IOException;
 
+import io.moquette.interception.InterceptHandler;
 import io.moquette.server.Server;
 
 public class BrokerServerData {
 	
 	private Server server;
 	private File configFile;
+	private InterceptHandler interceptHandler;
 	private boolean start = false;
 	
 	public BrokerServerData() {
@@ -38,6 +40,9 @@ public class BrokerServerData {
 	
 	public void start() throws IOException {
 		this.server.startServer( this.configFile );
+		if (this.interceptHandler != null) {
+			this.server.addInterceptHandler(this.interceptHandler);
+		}
 		this.start = true;
 	}
 	
@@ -52,6 +57,14 @@ public class BrokerServerData {
 
 	public void setServer(Server server) {
 		this.server = server;
+	}
+
+	public InterceptHandler getInterceptHandler() {
+		return interceptHandler;
+	}
+
+	public void setInterceptHandler(InterceptHandler interceptHandler) {
+		this.interceptHandler = interceptHandler;
 	}
 
 	public File getConfigFile() {

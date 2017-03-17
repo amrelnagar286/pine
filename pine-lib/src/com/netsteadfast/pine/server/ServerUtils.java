@@ -27,9 +27,15 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import io.moquette.interception.InterceptHandler;
+
 public class ServerUtils {
 	
 	private static Map<String, BrokerServerData> brokerServers = new LinkedHashMap<String, BrokerServerData>();
+	
+	public static BrokerServerData get(String id) {
+		return brokerServers.get(id);
+	}
 	
 	public synchronized static void add(String id, String configFileFullPath) throws Exception {
 		if (StringUtils.isBlank(id) || StringUtils.isBlank(configFileFullPath)) {
@@ -43,6 +49,11 @@ public class ServerUtils {
 		bsData.setConfigFile(configFile);
 		brokerServers.put(id, bsData);
 	}
+	
+	public synchronized static void add(String id, String configFileFullPath, InterceptHandler interceptHandler) throws Exception {
+		add(id, configFileFullPath);
+		brokerServers.get(id).setInterceptHandler(interceptHandler);
+	}	
 	
 	public synchronized static void start(String id) throws Exception {
 		if (StringUtils.isBlank(id)) {
