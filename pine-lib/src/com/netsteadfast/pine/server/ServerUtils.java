@@ -21,6 +21,43 @@
  */
 package com.netsteadfast.pine.server;
 
-public class ServerUtils {
+import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+public class ServerUtils {
+	
+	private static Map<String, BrokerServerCallableData> brokerServers = new LinkedHashMap<String, BrokerServerCallableData>();
+	
+	public static void add(String id, String configFileFullPath) throws Exception {
+		if (StringUtils.isBlank(id) || StringUtils.isBlank(configFileFullPath)) {
+			throw new IllegalArgumentException("args id or configFileFullPath blank");
+		}
+		File configFile = new File(configFileFullPath);
+		if (!configFile.exists()) {
+			throw new Exception("Config file not found!");
+		}
+		BrokerServerCallableData bsData = new BrokerServerCallableData();
+		bsData.setConfigFile(configFile);
+		brokerServers.put(id, bsData);
+	}
+	
+	public static void stop(String id) throws Exception {
+		BrokerServerCallableData bsData = brokerServers.get(id);
+		if (null == bsData) {
+			return;
+		}
+		bsData.getServer().stopServer();
+	}
+	
+	public static void remove(String id) throws Exception {
+		if (StringUtils.isBlank(id)) {
+			return;
+		}
+		stop(id);
+		brokerServers.remove(id);
+	}
+	
 }
