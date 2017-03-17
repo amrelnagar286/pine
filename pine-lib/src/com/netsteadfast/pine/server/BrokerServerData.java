@@ -26,17 +26,24 @@ import java.io.IOException;
 
 import io.moquette.server.Server;
 
-public class BrokerServerCallableData {
+public class BrokerServerData {
 	
 	private Server server;
 	private File configFile;
+	private boolean start = false;
 	
-	public BrokerServerCallableData() {
+	public BrokerServerData() {
 		this.server = new Server();
 	}
 	
 	public void start() throws IOException {
 		this.server.startServer( this.configFile );
+		this.start = true;
+	}
+	
+	public void stop() throws Exception {
+		this.server.stopServer();
+		this.start = false;
 	}
 
 	public Server getServer() {
@@ -53,6 +60,10 @@ public class BrokerServerCallableData {
 
 	public void setConfigFile(File configFile) {
 		this.configFile = configFile;
+	}
+
+	public boolean isStart() {
+		return start;
 	}
 	
 }

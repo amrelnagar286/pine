@@ -29,9 +29,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ServerUtils {
 	
-	private static Map<String, BrokerServerCallableData> brokerServers = new LinkedHashMap<String, BrokerServerCallableData>();
+	private static Map<String, BrokerServerData> brokerServers = new LinkedHashMap<String, BrokerServerData>();
 	
-	public static void add(String id, String configFileFullPath) throws Exception {
+	public synchronized static void add(String id, String configFileFullPath) throws Exception {
 		if (StringUtils.isBlank(id) || StringUtils.isBlank(configFileFullPath)) {
 			throw new IllegalArgumentException("args id or configFileFullPath blank");
 		}
@@ -39,25 +39,69 @@ public class ServerUtils {
 		if (!configFile.exists()) {
 			throw new Exception("Config file not found!");
 		}
-		BrokerServerCallableData bsData = new BrokerServerCallableData();
+		BrokerServerData bsData = new BrokerServerData();
 		bsData.setConfigFile(configFile);
 		brokerServers.put(id, bsData);
 	}
 	
-	public static void stop(String id) throws Exception {
-		BrokerServerCallableData bsData = brokerServers.get(id);
+	public synchronized static void start(String id) throws Exception {
+		if (StringUtils.isBlank(id)) {
+			throw new IllegalArgumentException("id blank");
+		}
+		BrokerServerData bsData = brokerServers.get(id);
+		if (bsData.isStart()) {
+			return;
+		}
+		bsData.start();
+	}
+	
+	public synchronized static void stop(String id) throws Exception {
+		BrokerServerData bsData = brokerServers.get(id);
 		if (null == bsData) {
+			return;
+		}
+		if (!bsData.isStart()) {
 			return;
 		}
 		bsData.getServer().stopServer();
 	}
 	
-	public static void remove(String id) throws Exception {
+	public synchronized static void remove(String id) throws Exception {
 		if (StringUtils.isBlank(id)) {
-			return;
+			throw new IllegalArgumentException("id blank");
 		}
 		stop(id);
 		brokerServers.remove(id);
+	}
+	
+	public synchronized static void stopAll() {
+		for (Map.Entry<String, BrokerServerData> entry : brokerServers.entrySet()) {
+			try {
+				stop( entry.getKey() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public synchronized static void startAll() {
+		for (Map.Entry<String, BrokerServerData> entry : brokerServers.entrySet()) {
+			try {
+				start( entry.getKey() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	public synchronized static void removeAll() {
+		for (Map.Entry<String, BrokerServerData> entry : brokerServers.entrySet()) {
+			try {
+				remove( entry.getKey() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+		}
 	}
 	
 }
