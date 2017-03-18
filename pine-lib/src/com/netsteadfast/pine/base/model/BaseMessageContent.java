@@ -24,20 +24,6 @@ package com.netsteadfast.pine.base.model;
 public class BaseMessageContent implements java.io.Serializable {
 	private static final long serialVersionUID = -6055740296464533708L;
 	
-	
-	/**
-	 * example:
-	 * 
-	 * scriptType = groovy, scriptId=s001
-	 * /var/pine/device/PC-948794KUANG/s001.groovy
-	 * /var/pine/device/${deviceId}/${scriptId}
-	 * 
-	 * scriptType = bsh, scriptId = s002
-	 * /var/pine/device/PC-948794KUANG/s002.bsh
-	 * /var/pine/device/${deviceId}/${scriptId}
-	 * 
-	 */
-	
 	private String eventId;
 	private String deviceId;
 	private String name;

@@ -42,6 +42,11 @@ public class BaseMessageProcess implements java.io.Serializable {
 		return new BaseMessageProcess();
 	}
 	
+	public static String toJsonFrom(BaseMessageContent content) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();		
+		return objectMapper.writeValueAsString(content);
+	}	
+	
 	public BaseMessageContent getContent() {
 		return this.content;
 	}

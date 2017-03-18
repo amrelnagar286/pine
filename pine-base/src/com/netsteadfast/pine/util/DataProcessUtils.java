@@ -35,9 +35,12 @@ import com.netsteadfast.util.ScriptExpressionUtils;
 
 public class DataProcessUtils {
 	
-	public static String getScriptFileFullPath(BaseMessageContent messageContent) {
+	public static final String PUBLISH = "publish";
+	public static final String SUBSCRIBE = "subscribe";
+	
+	public static String getScriptFileFullPath(String type, BaseMessageContent messageContent) {
 		String baseDir = PineConfig.getScriptBaseDir();
-		return baseDir + "/" + messageContent.getDeviceId() + "/" + messageContent.getScriptId() + "." + messageContent.getScriptType().toLowerCase();
+		return baseDir + "/" + messageContent.getDeviceId() + "/" + type  + "/" + messageContent.getScriptId() + "." + messageContent.getScriptType().toLowerCase();
 	}
 	
 	public static String readScriptContent(String fileFullPath) {
@@ -52,8 +55,16 @@ public class DataProcessUtils {
 		return content;
 	}
 	
-	public static void process(BaseMessageContent messageContent) throws Exception {
-		String scriptFile = getScriptFileFullPath(messageContent);
+	public static void processSubscribe(BaseMessageContent messageContent) throws Exception {
+		process(SUBSCRIBE, messageContent);
+	}	
+	
+	public static void processPublish(BaseMessageContent messageContent) throws Exception {
+		process(PUBLISH, messageContent);
+	}		
+	
+	public static void process(String type, BaseMessageContent messageContent) throws Exception {
+		String scriptFile = getScriptFileFullPath(type, messageContent);
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("messageContent", messageContent);
 		ScriptExpressionUtils.execute(messageContent.getScriptType(), readScriptContent(scriptFile), paramMap, paramMap);

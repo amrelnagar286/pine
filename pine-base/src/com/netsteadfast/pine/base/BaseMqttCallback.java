@@ -45,7 +45,7 @@ public class BaseMqttCallback implements MqttCallback {
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		BaseMessageContent messageContent = BaseMessageProcess.build().readValue2MessageContentFromJson(message.toString());
 		System.out.println("messageArrived message=" + message.toString() ); // for TEST now
-		DataProcessUtils.process(messageContent);
+		DataProcessUtils.processSubscribe(messageContent);
 	}
 	
 }

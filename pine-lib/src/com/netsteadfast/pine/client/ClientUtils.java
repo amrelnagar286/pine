@@ -32,6 +32,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
+import com.netsteadfast.pine.base.model.BaseMessageContent;
 import com.netsteadfast.pine.base.model.BaseMessageProcess;
 
 public class ClientUtils {
@@ -127,6 +128,12 @@ public class ClientUtils {
             	.value( contentString )
             	.sysMessage( sysMessage )
             	.toJson();	
+		System.out.println("messageJsonContent="+messageJsonContent); // for TEST now
+		publish(clientId, topic, messageJsonContent);
+	}
+	
+	public synchronized static void publish(String clientId, String topic, BaseMessageContent content) throws Exception, MqttException {
+		String messageJsonContent = BaseMessageProcess.toJsonFrom(content);
 		System.out.println("messageJsonContent="+messageJsonContent); // for TEST now
 		publish(clientId, topic, messageJsonContent);
 	}
