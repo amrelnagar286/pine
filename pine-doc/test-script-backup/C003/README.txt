@@ -1,0 +1,1 @@
+copy to /var/pine/device/C003/
