@@ -110,8 +110,14 @@ public class ClientUtils {
 		clients.get(clientId).getMqttClient().close();
 	}
 	
-	public synchronized static void publish(String clientId, String topic, String eventId, String name, String scriptId, String scriptType, String contentString, String sysMessage) throws Exception, MqttException {
+	public synchronized static void publish(String clientId, String topic, String content) throws Exception, MqttException {
 		connect(clientId);
+		MqttMessage mqttMessage = new MqttMessage( content.getBytes() );
+		mqttMessage.setQos( clients.get(clientId).getQos() );
+		clients.get(clientId).getMqttClient().publish(topic, mqttMessage);		
+	}
+	
+	public synchronized static void publish(String clientId, String topic, String eventId, String name, String scriptId, String scriptType, String contentString, String sysMessage) throws Exception, MqttException {
 		String messageJsonContent = BaseMessageProcess.build()
 				.deviceId( clientId )
             	.eventId( eventId )
@@ -122,9 +128,7 @@ public class ClientUtils {
             	.message( sysMessage )
             	.toJson();	
 		System.out.println("messageJsonContent="+messageJsonContent); // for TEST now
-		MqttMessage mqttMessage = new MqttMessage( messageJsonContent.getBytes() );
-		mqttMessage.setQos( clients.get(clientId).getQos() );
-		clients.get(clientId).getMqttClient().publish(topic, mqttMessage);
+		publish(clientId, topic, messageJsonContent);
 	}
 	
 	public synchronized static void subscribe(String clientId) throws Exception, MqttException {
