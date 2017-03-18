@@ -21,11 +21,6 @@
  */
 package com.netsteadfast.pine.base;
 
-public class Constants {
-	
-	/**
-	 * 不要更改這個設定
-	 */
-	public static final String BASE_ENCODING = "utf-8";
+public class PineConstants {
 
 }

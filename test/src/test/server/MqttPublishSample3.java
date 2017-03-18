@@ -1,12 +1,8 @@
 package test.server;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import com.netsteadfast.pine.base.model.BaseMessageProcess;
+import com.netsteadfast.pine.client.ClientUtils;
 
 public class MqttPublishSample3 {
 	
@@ -16,42 +12,21 @@ public class MqttPublishSample3 {
         String content      = "";
         int qos             = 2;
         String broker       = "tcp://localhost:1991";
-        String clientId     = "JavaSample_" + java.util.UUID.randomUUID();
-        MemoryPersistence persistence = new MemoryPersistence();
+        String clientId     = "CLIENT003_" + java.util.UUID.randomUUID();
         
-        content = BaseMessageProcess.build()
-        	.deviceId("PC-001")
-        	.eventId("TEST01")
-        	.name("鄰家的派豆龍TEST")
-        	.scriptId("SHOW")
-        	.scriptType("groovy")
-        	.value("鄰家的派豆龍真他媽的感人阿!!!")
-        	.message("")
-        	.toJson();
         
         try {
-            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
-            MqttConnectOptions connOpts = new MqttConnectOptions();
-            connOpts.setCleanSession(true);
-            System.out.println("Connecting to broker: "+broker);
-            sampleClient.connect(connOpts);
-            System.out.println("Connected");
-            System.out.println("Publishing message: "+content);
-            
-            MqttMessage message = new MqttMessage( content.getBytes() );
-            message.setQos(qos);            	
-            sampleClient.publish(topic, message);
-            
-            System.out.println("Message published");
-            sampleClient.disconnect();
-            System.out.println("Disconnected");
+        	
+        	ClientUtils.add(clientId, broker, qos, "", "", topic, content);
+        	
+        	ClientUtils.publish(clientId, topic, "EVENT001", "Print-test", "P001", "groovy", "鄰家的派豆龍真他媽的感人阿!!!", "try on my PC");
+        	ClientUtils.publish(clientId, topic+"的假期", "EVENT002", "hello-world", "P002", "bsh", "鄰家的派豆龍~羅德里斯的假期!!! 感人上映.", "try on my PC");
+        	
+        	ClientUtils.close(clientId);
+        	ClientUtils.remove(clientId);
+        	
             System.exit(0);
         } catch(MqttException me) {
-            System.out.println("reason "+me.getReasonCode());
-            System.out.println("msg "+me.getMessage());
-            System.out.println("loc "+me.getLocalizedMessage());
-            System.out.println("cause "+me.getCause());
-            System.out.println("excep "+me);
             me.printStackTrace();
         }
         

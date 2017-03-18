@@ -28,7 +28,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.netsteadfast.pine.base.Constants;
+import com.netsteadfast.base.Constants;
 
 public class BaseMessageProcess implements java.io.Serializable {
 	private static final long serialVersionUID = 7369798742403969516L;
