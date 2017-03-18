@@ -91,8 +91,8 @@ public class BaseMessageProcess implements java.io.Serializable {
 		return this;
 	}
 	
-	public BaseMessageProcess message(String message) {
-		this.content.setMessage(message);
+	public BaseMessageProcess sysMessage(String message) {
+		this.content.setSysMessage(message);
 		return this;
 	}
 

@@ -2,11 +2,10 @@ package test.server;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import com.netsteadfast.base.model.ScriptTypeCode;
 import com.netsteadfast.pine.base.BaseMqttCallback;
 import com.netsteadfast.pine.client.ClientUtils;
 
-public class MqttPublishSample3 {
+public class MqttSubscribeSample3 {
 	
     public static void main(String[] args) throws Exception {
 
@@ -14,15 +13,18 @@ public class MqttPublishSample3 {
         String content      = "";
         int qos             = 2;
         String broker       = "tcp://localhost:1991";
-        String clientId     = "C003";
+        String clientId     = "C003-client";
         
         
         try {
         	
-        	ClientUtils.add(clientId, broker, qos, "", "", topic, content);
+        	ClientUtils.add(clientId, broker, qos, "", "", topic, content, new BaseMqttCallback());
         	
-        	ClientUtils.publish(clientId, topic, "EVENT001", "Print-test", "P001", ScriptTypeCode.GROOVY, "鄰家的派豆龍真他媽的感人阿!!!", "try on my PC");
-        	ClientUtils.publish(clientId, topic+"的假期", "EVENT002", "hello-world", "P002", ScriptTypeCode.BSH, "鄰家的派豆龍~羅德里斯的假期!!! 感人上映.", "try on my PC");
+        	ClientUtils.subscribeById( clientId );
+        	
+        	Thread.sleep( 1000*20 );
+        	
+        	ClientUtils.unsubscribeById( clientId );
         	
         	ClientUtils.close(clientId);
         	ClientUtils.remove(clientId);
@@ -32,6 +34,6 @@ public class MqttPublishSample3 {
             me.printStackTrace();
         }
         
-    }	
+    }		
 
 }

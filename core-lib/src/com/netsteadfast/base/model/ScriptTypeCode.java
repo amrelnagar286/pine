@@ -19,16 +19,32 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.base;
+package com.netsteadfast.base.model;
 
-public class Constants {
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.netsteadfast.base.Constants;
+
+public class ScriptTypeCode {
+	public static final String BSH = "BSH"; // beanShell2
+	public static final String GROOVY = "GROOVY"; // groovy
 	
-	/**
-	 * 不要更改這個設定
-	 */
-	public static final String BASE_ENCODING = "utf-8";
+	public static boolean isTypeCode(String type) {
+		if (BSH.equals(type) || GROOVY.equals(type)) {
+			return true;
+		}
+		return false;
+	}
 	
-	public static final String HTML_SELECT_NO_SELECT_ID="all";
-	public static final String HTML_SELECT_NO_SELECT_NAME=" - please select - ";		
+	public static Map<String, String> getTypeMap(boolean pleaseSelect) {
+		Map<String, String> dataMap = new LinkedHashMap<String, String>();
+		if (pleaseSelect) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		dataMap.put(BSH, "java ( BeanShell2 )");
+		dataMap.put(GROOVY, "groovy");
+		return dataMap;
+	}	
 	
 }

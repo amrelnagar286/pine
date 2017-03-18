@@ -44,7 +44,7 @@ public class BaseMessageContent implements java.io.Serializable {
 	private String scriptType;
 	private String scriptId;
 	private String value;
-	private String message;	
+	private String sysMessage;	
 	
 	public String getEventId() {
 		return eventId;
@@ -93,13 +93,13 @@ public class BaseMessageContent implements java.io.Serializable {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	public String getMessage() {
-		return message;
+
+	public String getSysMessage() {
+		return sysMessage;
 	}
-	
-	public void setMessage(String message) {
-		this.message = message;
+
+	public void setSysMessage(String sysMessage) {
+		this.sysMessage = sysMessage;
 	}
 	
 }

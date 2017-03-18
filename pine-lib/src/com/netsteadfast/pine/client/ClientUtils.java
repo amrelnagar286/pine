@@ -125,18 +125,18 @@ public class ClientUtils {
             	.scriptId( scriptId )
             	.scriptType( scriptType )
             	.value( contentString )
-            	.message( sysMessage )
+            	.sysMessage( sysMessage )
             	.toJson();	
 		System.out.println("messageJsonContent="+messageJsonContent); // for TEST now
 		publish(clientId, topic, messageJsonContent);
 	}
 	
-	public synchronized static void subscribe(String clientId) throws Exception, MqttException {
+	public synchronized static void subscribeById(String clientId) throws Exception, MqttException {
 		connect(clientId);
 		clients.get(clientId).getMqttClient().subscribe( clients.get(clientId).getTopic() );
 	}	
 	
-	public synchronized static void unsubscribe(String clientId) throws Exception, MqttException {
+	public synchronized static void unsubscribeById(String clientId) throws Exception, MqttException {
 		clients.get(clientId).getMqttClient().unsubscribe( clients.get(clientId).getTopic() );
 	}		
 	

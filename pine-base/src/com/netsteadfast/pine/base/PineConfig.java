@@ -19,16 +19,25 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.base;
+package com.netsteadfast.pine.base;
 
-public class Constants {
+import java.io.IOException;
+import java.util.Properties;
+
+public class PineConfig {
 	
-	/**
-	 * 不要更改這個設定
-	 */
-	public static final String BASE_ENCODING = "utf-8";
+	private static Properties properties = new Properties();
 	
-	public static final String HTML_SELECT_NO_SELECT_ID="all";
-	public static final String HTML_SELECT_NO_SELECT_NAME=" - please select - ";		
+	static {
+		try {
+			properties.load( PineConfig.class.getClassLoader().getResourceAsStream("pine.properties") );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getScriptBaseDir() {
+		return properties.getProperty("pine.scriptBaseDir");
+	}
 	
 }
