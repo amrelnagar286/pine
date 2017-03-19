@@ -1,4 +1,4 @@
-# pine
+# Pine
 Pine demo project, a test IoT project use MQTT ( moquette https://github.com/andsel/moquette )
 
 <b>Demo server</b>
@@ -70,6 +70,13 @@ public class TestBrokerServer3 {
         
     }	
 ```
+<b>Demo publish script</b>
+/var/pine/device/C003/publish/P001.groovy
+```
+println "test process data for publish";
+messageContent.value = messageContent.value + "初音是雙馬尾公主!!";
+System.out.println( messageContent.value );
+```
 
 <br>
 <br>
@@ -108,4 +115,10 @@ public class MqttSubscribeSample3 {
     }		
 
 }
+```
+<b>Demo subscribe script</b>
+/var/pine/device/C003/subscribe/P001.groovy
+```
+println "test";
+System.out.println( messageContent.value );
 ```
