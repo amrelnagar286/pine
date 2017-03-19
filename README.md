@@ -71,7 +71,8 @@ public class TestBrokerServer3 {
     }	
 ```
 <b>Demo publish script</b>
-/var/pine/device/C003/publish/P001.groovy
+<br>
+/var/pine/device/C003/<b>publish/P001.groovy</b>
 ```
 println "test process data for publish";
 messageContent.value = messageContent.value + "初音是雙馬尾公主!!";
@@ -117,7 +118,8 @@ public class MqttSubscribeSample3 {
 }
 ```
 <b>Demo subscribe script</b>
-/var/pine/device/C003/subscribe/P001.groovy
+<br>
+/var/pine/device/C003/<b>subscribe/P001.groovy</b>
 ```
 println "test";
 System.out.println( messageContent.value );
