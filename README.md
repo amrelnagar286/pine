@@ -63,7 +63,7 @@ public class TestBrokerServer3 {
         	ClientUtils.close(clientId);
         	ClientUtils.remove(clientId);
         	
-            System.exit(0);
+            	System.exit(0);
         } catch(MqttException me) {
             me.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class TestBrokerServer3 {
 <b>Demo publish script</b>
 <br>
 /var/pine/device/C003/<b>publish/P001.groovy</b>
-```
+```GROOVY
 println "test process data for publish";
 messageContent.value = messageContent.value + "初音是雙馬尾公主!!";
 System.out.println( messageContent.value );
@@ -108,7 +108,7 @@ public class MqttSubscribeSample3 {
         	ClientUtils.close(clientId);
         	ClientUtils.remove(clientId);
         	
-            System.exit(0);
+            	System.exit(0);
         } catch(MqttException me) {
             me.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class MqttSubscribeSample3 {
 <b>Demo subscribe script</b>
 <br>
 /var/pine/device/C003/<b>subscribe/P001.groovy</b>
-```
+```GROOVY
 println "test";
 System.out.println( messageContent.value );
 ```
