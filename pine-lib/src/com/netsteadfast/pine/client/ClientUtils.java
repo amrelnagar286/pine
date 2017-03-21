@@ -147,4 +147,13 @@ public class ClientUtils {
 		clients.get(clientId).getMqttClient().unsubscribe( clients.get(clientId).getTopic() );
 	}		
 	
+	public synchronized static void subscribe(String clientId, String topic) throws Exception, MqttException {
+		connect(clientId);
+		clients.get(clientId).getMqttClient().subscribe( topic );
+	}	
+	
+	public synchronized static void unsubscribe(String clientId, String topic) throws Exception, MqttException {
+		clients.get(clientId).getMqttClient().unsubscribe( topic );
+	}		
+	
 }
