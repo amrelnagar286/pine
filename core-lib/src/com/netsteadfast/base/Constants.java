@@ -1,5 +1,5 @@
 /* 
- * Copyright 2012-2017 Pine of copyright Chen Xin Nien
+ * Copyright 2012-2017 netsteadfast of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,5 +30,25 @@ public class Constants {
 	
 	public static final String HTML_SELECT_NO_SELECT_ID="all";
 	public static final String HTML_SELECT_NO_SELECT_NAME=" - please select - ";		
+	
+	/**
+	 * 保留查詢參數名稱 for PageOf , BaseDAO
+	 */
+	public static final String _RESERVED_PARAM_NAME_QUERY_SORT_TYPE = "sortType";
+	
+	/**
+	 * 保留查詢參數名稱 for PageOf , BaseDAO
+	 */
+	public static final String _RESERVED_PARAM_NAME_QUERY_ORDER_BY = "orderBy";	
+	
+	public static final String QUERY_TYPE_OF_SELECT="select"; // BaseService 查詢 grid 要用
+	public static final String QUERY_TYPE_OF_COUNT="count"; // BaseService 查詢 grid 要用	
+	
+	public static final String SUPER_ROLE_ALL = "*";
+	public static final String SUPER_ROLE_ADMIN = "admin";
+	public static final String SUPER_PERMISSION = "*";
+	public static final String SYSTEM_BACKGROUND_USER = "system"; // 背景程式要用 , 配 SubjectBuilderForBackground.java 與 shiro.ini
+	public static final String SYSTEM_BACKGROUND_PASSWORD = "password99"; // 背景程式要用 , 配 SubjectBuilderForBackground.java 與 shiro.ini
+		
 	
 }

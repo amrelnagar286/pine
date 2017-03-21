@@ -1,5 +1,5 @@
 /* 
- * Copyright 2012-2017 Pine of copyright Chen Xin Nien
+ * Copyright 2012-2017 netsteadfast of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
