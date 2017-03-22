@@ -63,5 +63,6 @@ public class Constants {
 	 */	
 	public static final String NO_AUTHZ_JSON_DATA = "{ \"success\":\"" + YesNo.NO + "\",\"message\":\"no authorize!\",\"login\":\"" + YesNo.YES + "\",\"isAuthorize\":\"" + YesNo.NO + "\" }";
 	
+	public static final String PAGE_MESSAGE="pageMessage";
 	
 }
