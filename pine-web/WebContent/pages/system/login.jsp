@@ -79,7 +79,7 @@ function submitLoginForm() {
 <div class="container">   
 <form class="form-signin" name="loginForm" id="loginForm" action="./login.do" method="post">
 
-    <div><img src="./images/pine2.png" />&nbsp;<b><font color="#75ca5b">Pine web console</font></b></div>
+    <div><img src="./images/pine2.png" />&nbsp;<b><font color="#75ca5b">Pine WEB console</font></b></div>
    
     <br/>
    
