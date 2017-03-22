@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function logoutEvent() {
 	bootbox.confirm(
-			"Are you sure? Logout!", 
+			"Logout! are you sure?", 
 			function(result){ 
 				if (!result) {
 					return;
