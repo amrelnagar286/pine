@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/core-lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/pine-base"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/pine-lib"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
