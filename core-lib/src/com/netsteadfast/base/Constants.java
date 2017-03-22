@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.base;
 
+import com.netsteadfast.base.model.YesNo;
+
 public class Constants {
 	
 	/**
@@ -49,6 +51,17 @@ public class Constants {
 	public static final String SUPER_PERMISSION = "*";
 	public static final String SYSTEM_BACKGROUND_USER = "system"; // 背景程式要用 , 配 SubjectBuilderForBackground.java 與 shiro.ini
 	public static final String SYSTEM_BACKGROUND_PASSWORD = "password99"; // 背景程式要用 , 配 SubjectBuilderForBackground.java 與 shiro.ini
+	
+	public static final String SESS_ACCOUNT="SESSION_PINE_ACCOUNT"; // 登入 account id 放到 session 變數名
 		
+	/**
+	 * GreenStepBaseFormAuthenticationFilter 要用的
+	 */
+	public static final String NO_LOGIN_JSON_DATA = "{ \"success\":\"" + YesNo.NO + "\",\"message\":\"Please login!\",\"login\":\"" + YesNo.NO + "\",\"isAuthorize\":\"" + YesNo.NO + "\" }";
+	/**
+	 * GreenStepBaseFormAuthenticationFilter 要用的
+	 */	
+	public static final String NO_AUTHZ_JSON_DATA = "{ \"success\":\"" + YesNo.NO + "\",\"message\":\"no authorize!\",\"login\":\"" + YesNo.YES + "\",\"isAuthorize\":\"" + YesNo.NO + "\" }";
+	
 	
 }
