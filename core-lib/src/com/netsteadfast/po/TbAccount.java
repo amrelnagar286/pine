@@ -30,7 +30,6 @@ public class TbAccount extends BaseEntity<String> implements java.io.Serializabl
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
-	//private TbEmpProfile tbEmpProfile;
 	
 	public TbAccount() {
 		
