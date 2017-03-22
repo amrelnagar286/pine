@@ -104,6 +104,8 @@ jandex-2.0.0.Final.jar
 jboss-logging-3.3.0.Final.jar
 javassist-3.18.1-GA.jar
 
+javax.transaction-api-1.2.jar
+
 
 log4j
 ===============================================

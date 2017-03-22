@@ -57,10 +57,9 @@ public class GreenStepBaseAuthorizingRealm extends AuthorizingRealm {
 	}
 
 	@Autowired
-	@Resource(name="core.service.AccountService")
+	@Resource(name="pine.service.AccountService")
 	@Required		
-	public void setAccountService(
-			IAccountService<AccountVO, TbAccount, String> accountService) {
+	public void setAccountService(IAccountService<AccountVO, TbAccount, String> accountService) {
 		this.accountService = accountService;
 	}
 

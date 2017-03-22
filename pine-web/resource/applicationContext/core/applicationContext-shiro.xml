@@ -12,9 +12,7 @@
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">    
  	
 	<bean id="greenStepBaseAuthorizingRealm" class="com.netsteadfast.pine.sys.GreenStepBaseAuthorizingRealm"> 
-   		<property name="accountService" ref="core.service.AccountService"/>
-   		<property name="userRoleService" ref="core.service.UserRoleService"/>
-   		<property name="rolePermissionService" ref="core.service.RolePermissionService"/>
+   		<property name="accountService" ref="pine.service.AccountService"/>
    	</bean> 
    	
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
