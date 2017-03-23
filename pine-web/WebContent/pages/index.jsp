@@ -25,6 +25,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 function changePage(url) {
+	if ( url.indexOf("?") > -1 ) {
+		url += '&isPineChagePage=Y';
+	} else {
+		url += '?isPineChagePage=Y';
+	}
 	$("#mainFrame").attr('src', url);
 }
 

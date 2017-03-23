@@ -37,6 +37,7 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 
 import com.netsteadfast.base.Constants;
+import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.vo.AccountVO;
 
 public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFilter {
@@ -142,6 +143,10 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     		response.setCharacterEncoding( Constants.BASE_ENCODING );
     		response.setContentType("application/json");
     		response.getWriter().write(Constants.NO_LOGIN_JSON_DATA);
+    		return;
+    	}
+    	if (YesNo.YES.equals( request.getParameter("isPineChagePage") )) {
+    		WebUtils.issueRedirect(request, response, "/pages/system/login_again.jsp");
     		return;
     	}
     	WebUtils.issueRedirect(request, response, getLoginUrl());

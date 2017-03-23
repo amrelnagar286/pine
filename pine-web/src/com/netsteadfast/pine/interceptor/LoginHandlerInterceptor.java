@@ -30,6 +30,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.netsteadfast.base.model.YesNo;
+
 public class LoginHandlerInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -46,7 +48,12 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		Subject subject = SecurityUtils.getSubject();
 		if (StringUtils.isBlank((String)subject.getPrincipal())) {
-			response.sendRedirect("login.do");
+			String isPineChagePage = request.getParameter("isPineChagePage");
+			if (YesNo.YES.equals(isPineChagePage)) {
+				response.sendRedirect("/pages/system/login_again.jsp");
+			} else {
+				response.sendRedirect("login.do");
+			}
 			return false;
 		}
 		return true;
