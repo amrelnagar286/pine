@@ -16,6 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `pi_broker`
+--
+
+DROP TABLE IF EXISTS `pi_broker`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pi_broker` (
+  `OID` char(36) NOT NULL,
+  `ID` varchar(50) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `BK_USERNAME` varchar(24) DEFAULT NULL,
+  `BK_PASSWORD` varchar(24) DEFAULT NULL,
+  `BK_PORT` varchar(5) NOT NULL,
+  `BK_WEBSOCKET_PORT` varchar(5) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`ID`),
+  KEY `IDX_1` (`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pi_broker`
+--
+
+LOCK TABLES `pi_broker` WRITE;
+/*!40000 ALTER TABLE `pi_broker` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pi_broker` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_account`
 --
 
@@ -91,4 +125,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-22 10:29:37
+-- Dump completed on 2017-03-23 13:57:41
