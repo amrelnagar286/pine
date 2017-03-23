@@ -18,7 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <style type="text/css">
 
-
+#mainContant {
+    height:100vh; 
+}
 
 </style>
 
