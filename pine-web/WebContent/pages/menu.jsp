@@ -42,7 +42,7 @@ function logoutEvent() {
           
           <a class="dropdown-item" href="#">Device</a>
 		  
-		  <a class="dropdown-item" href="#">Broker</a>
+		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do?test=123');">Broker</a>
 		  
 		  <div class="dropdown-divider"></div>
 		  <a class="dropdown-item" href="./index.do">Refresh</a>
@@ -53,7 +53,7 @@ function logoutEvent() {
         <a class="nav-link" href="./index.do"><b>Dashboard</b></a>
       </li>          
       <li class="nav-item">
-        <a class="nav-link" href="./about.html"><b>About</b></a>
+        <a class="nav-link" href="#" onclick="changePage('./pages/about.html');"><b>About</b></a>
       </li>     
       <li class="nav-item">
         <a class="nav-link" href="#" onclick="logoutEvent();"><b>Logout</b></a>

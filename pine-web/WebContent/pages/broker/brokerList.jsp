@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<jsp:include page="common.jsp"></jsp:include>
+<jsp:include page="../common.jsp"></jsp:include>
 
 <style type="text/css">
 
@@ -24,24 +24,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 
-function changePage(url) {
-	$("#mainFrame").attr('src', url);
-}
-
-
 </script>
 
 </head>
 
 <body>
 
-
-<jsp:include page="menu.jsp"></jsp:include>
-
-            
-<div id="mainContant">
-	<iframe src="./pages/about.html" id="mainFrame" name="mainFrame" scrolling="auto" frameborder="0" height="100%" width="100%"></iframe>              
-</div>
+borker-list test!!
             
 </body>
 </html>
