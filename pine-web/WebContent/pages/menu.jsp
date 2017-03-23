@@ -1,3 +1,4 @@
+<%@page import="com.netsteadfast.base.Constants"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -21,7 +22,39 @@ function logoutEvent() {
 	);	
 }
 
+function showPleaseWait() {
+	$('#myPleaseWait').modal('show');
+}
+function hidePleaseWait() {
+	$('#myPleaseWait').modal('hide');
+}
+
+function changePage(url) {
+	if ( url.indexOf("?") > -1 ) {
+		url += '&<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
+	} else {
+		url += '?<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
+	}
+	$("#mainFrame").attr('src', url);
+}
+
+
 </script>
+
+<!-- Modal Start here-->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="myPleaseWait">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mySmallModalLabel">Please wait!</h4>
+      </div>
+      <div class="modal-body">
+        <img alt="loading" src="./images/loadingAnimation.gif" border="0">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal ends Here -->
 
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-inverse bg-inverse">
 

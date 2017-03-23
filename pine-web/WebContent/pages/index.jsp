@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<jsp:include page="common.jsp"></jsp:include>
+<jsp:include page="common-inc.jsp"></jsp:include>
 
 <style type="text/css">
 
@@ -26,15 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 
 <script type="text/javascript">
-
-function changePage(url) {
-	if ( url.indexOf("?") > -1 ) {
-		url += '&<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
-	} else {
-		url += '?<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
-	}
-	$("#mainFrame").attr('src', url);
-}
 
 
 </script>

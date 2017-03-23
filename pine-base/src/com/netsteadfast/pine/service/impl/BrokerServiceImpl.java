@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.pine.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -30,7 +32,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.base.SysMessageUtil;
+import com.netsteadfast.base.SysMsgConstants;
 import com.netsteadfast.base.dao.IBaseDAO;
+import com.netsteadfast.base.exception.ServiceException;
+import com.netsteadfast.base.model.DefaultResult;
+import com.netsteadfast.base.model.SystemMessage;
 import com.netsteadfast.base.service.BaseService;
 import com.netsteadfast.pine.dao.IBrokerDAO;
 import com.netsteadfast.pine.service.IBrokerService;
@@ -71,6 +78,18 @@ public class BrokerServiceImpl extends BaseService<BrokerVO, PiBroker, String> i
 	@Override
 	public String getMapperIdVo2Po() {
 		return MAPPER_ID_VO2PO;
+	}
+
+	@Override
+	public DefaultResult<List<BrokerVO>> findSimpleResult() throws ServiceException, Exception {
+		DefaultResult<List<BrokerVO>> result = new DefaultResult<List<BrokerVO>>();
+		List<BrokerVO> searchList = this.brokerDAO.findSimpleList();
+		if (searchList != null && searchList.size() > 0) {
+			result.setValue(searchList);
+		} else {
+			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(SysMsgConstants.SEARCH_NO_DATA)) );
+		}
+		return result;
 	}
 	
 }

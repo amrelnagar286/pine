@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<jsp:include page="../common.jsp"></jsp:include>
+<jsp:include page="../common-inc.jsp"></jsp:include>
 
 <style type="text/css">
 
@@ -31,6 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 borker-list test!!
+
+<script>parent.showPleaseWait();</script>
             
 </body>
 </html>

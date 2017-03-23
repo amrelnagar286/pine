@@ -21,17 +21,54 @@
  */
 package com.netsteadfast.pine.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.netsteadfast.base.model.DefaultResult;
+import com.netsteadfast.pine.service.IBrokerService;
+import com.netsteadfast.po.PiBroker;
+import com.netsteadfast.vo.BrokerVO;
 
 @Controller
 public class BrokerAction {
 	
+	private IBrokerService<BrokerVO, PiBroker, String> brokerService;
+	
+	public IBrokerService<BrokerVO, PiBroker, String> getBrokerService() {
+		return brokerService;
+	}
+
+	@Autowired
+	@Resource(name="pine.service.BrokerService")
+	@Required		
+	public void setBrokerService(IBrokerService<BrokerVO, PiBroker, String> brokerService) {
+		this.brokerService = brokerService;
+	}
+
 	@RequestMapping(value = "brokerList.do")
-	public String list(@RequestParam(name = "test") String test) {
+	public ModelAndView list(@RequestParam(name = "test") String test) {
+		ModelAndView mv = new ModelAndView();
+		List<BrokerVO> brokers = null;
 		System.out.println("TEST=>>>>>>>>>>>>> " + test );
-		return "broker/brokerList";
+		try {
+			DefaultResult<List<BrokerVO>> bResult = this.brokerService.findSimpleResult();
+			if (bResult.getValue() != null) {
+				brokers = bResult.getValue();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.setViewName("broker/brokerList");
+		mv.addObject("brokers", brokers);
+		return mv;
 	}
 	
 	@RequestMapping(value = "brokerCreate.do")

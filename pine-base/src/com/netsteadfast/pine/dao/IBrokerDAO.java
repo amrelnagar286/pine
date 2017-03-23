@@ -21,9 +21,14 @@
  */
 package com.netsteadfast.pine.dao;
 
+import java.util.List;
+
 import com.netsteadfast.base.dao.IBaseDAO;
 import com.netsteadfast.po.PiBroker;
+import com.netsteadfast.vo.BrokerVO;
 
 public interface IBrokerDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<PiBroker, String> {
-
+	
+	public List<BrokerVO> findSimpleList() throws Exception;
+	
 }
