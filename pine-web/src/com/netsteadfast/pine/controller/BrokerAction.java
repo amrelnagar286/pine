@@ -54,10 +54,9 @@ public class BrokerAction {
 	}
 
 	@RequestMapping(value = "brokerList.do")
-	public ModelAndView list(@RequestParam(name = "test") String test) {
+	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView();
 		List<BrokerVO> brokers = null;
-		System.out.println("TEST=>>>>>>>>>>>>> " + test );
 		try {
 			DefaultResult<List<BrokerVO>> bResult = this.brokerService.findSimpleResult();
 			if (bResult.getValue() != null) {
@@ -78,7 +77,7 @@ public class BrokerAction {
 	}
 	
 	@RequestMapping(value = "brokerEdit.do")
-	public String edit() {
+	public String edit(@RequestParam(name="oid") String oid) {
 		
 		return "broker/brokerEdit";
 	}

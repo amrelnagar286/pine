@@ -30,9 +30,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 
-borker-list test!!
+<jsp:include page="../bar1.jsp">
+	<jsp:param name="refreshUrl" value="./brokerList.do"/>
+	<jsp:param name="createUrl" value="./brokerCreate.do"/>
+</jsp:include>
 
-<script>parent.showPleaseWait();</script>
+<script>
+// test
+//parent.showPleaseWait();
+</script>
             
 </body>
 </html>

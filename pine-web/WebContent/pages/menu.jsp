@@ -75,7 +75,7 @@ function changePage(url) {
           
           <a class="dropdown-item" href="#">Device</a>
 		  
-		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do?test=123');">Broker</a>
+		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do');">Broker</a>
 		  
 		  <div class="dropdown-divider"></div>
 		  <a class="dropdown-item" href="./index.do">Refresh</a>
