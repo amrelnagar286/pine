@@ -1,3 +1,4 @@
+<%@page import="com.netsteadfast.base.Constants"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,9 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function changePage(url) {
 	if ( url.indexOf("?") > -1 ) {
-		url += '&isPineChagePage=Y';
+		url += '&<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
 	} else {
-		url += '?isPineChagePage=Y';
+		url += '?<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y';
 	}
 	$("#mainFrame").attr('src', url);
 }
@@ -47,7 +48,7 @@ function changePage(url) {
 
             
 <div id="mainContant">
-	<iframe src="./pages/about.html" id="mainFrame" name="mainFrame" scrolling="auto" frameborder="0" height="100%" width="100%"></iframe>              
+	<iframe src="" id="mainFrame" name="mainFrame" scrolling="auto" frameborder="0" height="100%" width="100%"></iframe>              
 </div>
             
 </body>

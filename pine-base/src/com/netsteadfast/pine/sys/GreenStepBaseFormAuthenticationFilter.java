@@ -145,7 +145,7 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     		response.getWriter().write(Constants.NO_LOGIN_JSON_DATA);
     		return;
     	}
-    	if (YesNo.YES.equals( request.getParameter("isPineChagePage") )) {
+    	if (YesNo.YES.equals( request.getParameter( Constants.PAGE_CHANGE_URL_PARAM ) )) {
     		WebUtils.issueRedirect(request, response, "/pages/system/login_again.jsp");
     		return;
     	}

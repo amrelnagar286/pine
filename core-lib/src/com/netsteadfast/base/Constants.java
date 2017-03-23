@@ -65,4 +65,9 @@ public class Constants {
 	
 	public static final String PAGE_MESSAGE="pageMessage";
 	
+	/**
+	 * 給選單開啟 url 使用
+	 */
+	public static final String PAGE_CHANGE_URL_PARAM = "isPageChange";
+	
 }

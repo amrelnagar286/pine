@@ -34,7 +34,7 @@ function logoutEvent() {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
     <ul class="nav navbar-nav">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Application
         </a>
@@ -49,7 +49,7 @@ function logoutEvent() {
           
         </div>
       </li>	
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="./index.do"><b>Dashboard</b></a>
       </li>          
       <li class="nav-item">

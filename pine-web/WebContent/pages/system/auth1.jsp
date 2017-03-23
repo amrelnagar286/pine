@@ -37,12 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <tr>
     <td width="10" rowspan="3" bgcolor="#AE0606">&nbsp;</td>
     <td width="48" bgcolor="#000000">&nbsp;</td>
-    <td bgcolor="#000000"><font color="#FFFFFF" size="5"><B>Please log in again:</B></font></td>
+    <td bgcolor="#000000"><font color="#FFFFFF" size="5"><B>No permission:</B></font></td>
   </tr>
   <tr>
     <td width="48" bgcolor="#E9D8D8"><img src="./images/warning.png" width="48" height="48" border="0"/></td>
     <td valign="top" bgcolor="#E9D8D8">
-	<font color="#666666" size="4">Login account session timeout, <BR/>please refresh the page or re-login to the system.</font>     
+	<font color="#666666" size="4">You do not have permission to use this feature, <BR/>if you want to use this feature, set the permissions.</font>     
     </td>
   </tr>
   <tr>
@@ -61,6 +61,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 	
   </table>
-  
   </body>
 </html>
