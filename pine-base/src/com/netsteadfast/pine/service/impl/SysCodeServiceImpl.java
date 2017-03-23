@@ -34,8 +34,8 @@ import com.netsteadfast.base.dao.IBaseDAO;
 import com.netsteadfast.base.service.BaseService;
 import com.netsteadfast.pine.dao.ISysCodeDAO;
 import com.netsteadfast.pine.service.ISysCodeService;
-import com.netsteadfast.pine.vo.SysCodeVO;
 import com.netsteadfast.po.TbSysCode;
+import com.netsteadfast.vo.SysCodeVO;
 
 @Service("pine.service.SysCodeService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)

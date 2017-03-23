@@ -24,8 +24,8 @@ package com.netsteadfast.pine.dao;
 import java.util.List;
 
 import com.netsteadfast.base.dao.IBaseDAO;
-import com.netsteadfast.pine.vo.AccountVO;
 import com.netsteadfast.po.TbAccount;
+import com.netsteadfast.vo.AccountVO;
 
 public interface IAccountDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<TbAccount, String> {
 	

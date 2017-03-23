@@ -38,8 +38,8 @@ import org.springframework.beans.factory.annotation.Required;
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.pine.service.IAccountService;
-import com.netsteadfast.pine.vo.AccountVO;
 import com.netsteadfast.po.TbAccount;
+import com.netsteadfast.vo.AccountVO;
 
 public class GreenStepBaseAuthorizingRealm extends AuthorizingRealm {
 	private IAccountService<AccountVO, TbAccount, String> accountService;

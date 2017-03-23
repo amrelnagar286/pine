@@ -38,7 +38,7 @@ import org.apache.shiro.web.util.WebUtils;
 
 import com.netsteadfast.base.Constants;
 import com.netsteadfast.base.model.YesNo;
-import com.netsteadfast.pine.vo.AccountVO;
+import com.netsteadfast.vo.AccountVO;
 
 public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected static Logger logger = Logger.getLogger(GreenStepBaseFormAuthenticationFilter.class);

@@ -35,8 +35,8 @@ import com.netsteadfast.base.AppContext;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.service.IAccountService;
-import com.netsteadfast.pine.vo.AccountVO;
 import com.netsteadfast.po.TbAccount;
+import com.netsteadfast.vo.AccountVO;
 
 public class ShiroLoginSupport {
 	protected Logger logger = Logger.getLogger(ShiroLoginSupport.class);

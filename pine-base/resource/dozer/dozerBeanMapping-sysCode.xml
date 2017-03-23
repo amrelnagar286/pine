@@ -6,7 +6,7 @@
 	
 	<mapping map-id="sysCode.po2vo" >
 		<class-a>com.netsteadfast.po.TbSysCode</class-a>
-		<class-b>com.netsteadfast.pine.vo.SysCodeVO</class-b>
+		<class-b>com.netsteadfast.vo.SysCodeVO</class-b>
 		<field>
 			<a>oid</a>
 			<b>oid</b>
@@ -46,7 +46,7 @@
 	</mapping>
 
 	<mapping map-id="sysCode.vo2po" >
-		<class-a>com.netsteadfast.pine.vo.SysCodeVO</class-a>
+		<class-a>com.netsteadfast.vo.SysCodeVO</class-a>
 		<class-b>com.netsteadfast.po.TbSysCode</class-b>
 		<field>
 			<a>oid</a>

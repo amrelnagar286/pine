@@ -6,7 +6,7 @@
 	
 	<mapping map-id="account.po2vo" >
 		<class-a>com.netsteadfast.po.TbAccount</class-a>
-		<class-b>com.netsteadfast.pine.vo.AccountVO</class-b>
+		<class-b>com.netsteadfast.vo.AccountVO</class-b>
 		<field>
 			<a>oid</a>
 			<b>oid</b>
@@ -26,7 +26,7 @@
 	</mapping>
 
 	<mapping map-id="account.vo2po" >
-		<class-a>com.netsteadfast.pine.vo.AccountVO</class-a>
+		<class-a>com.netsteadfast.vo.AccountVO</class-a>
 		<class-b>com.netsteadfast.po.TbAccount</class-b>
 		<field>
 			<a>oid</a>

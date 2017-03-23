@@ -44,9 +44,9 @@ import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.service.BaseService;
 import com.netsteadfast.pine.dao.IAccountDAO;
 import com.netsteadfast.pine.service.IAccountService;
-import com.netsteadfast.pine.vo.AccountVO;
 import com.netsteadfast.po.TbAccount;
 import com.netsteadfast.util.SimpleUtils;
+import com.netsteadfast.vo.AccountVO;
 
 @Service("pine.service.AccountService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)

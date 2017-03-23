@@ -27,8 +27,8 @@ import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.base.dao.BaseDAO;
 import com.netsteadfast.pine.dao.IAccountDAO;
-import com.netsteadfast.pine.vo.AccountVO;
 import com.netsteadfast.po.TbAccount;
+import com.netsteadfast.vo.AccountVO;
 
 @Repository("pine.dao.AccountDAO")
 public class AccountDAOImpl extends BaseDAO<TbAccount, String> implements IAccountDAO<TbAccount, String> {

@@ -19,7 +19,7 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.pine.vo;
+package com.netsteadfast.vo;
 
 import com.netsteadfast.base.model.BaseValueObj;
 

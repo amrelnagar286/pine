@@ -26,7 +26,7 @@ import java.util.Map;
 
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.service.IBaseService;
-import com.netsteadfast.pine.vo.AccountVO;
+import com.netsteadfast.vo.AccountVO;
 
 public interface IAccountService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
