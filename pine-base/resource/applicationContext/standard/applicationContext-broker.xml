@@ -12,20 +12,7 @@
     
     <context:annotation-config />
     
-	<bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
-		<property name="mappingFiles"> 
-			<list>
-				<value>classpath*:dozer/dozerBeanMapping.xml</value>
-				
-                <!-- #################################################### -->
-                <!-- PINE-SYSTEM -->
-                <!-- #################################################### -->  							
-				<value>classpath*:dozer/dozerBeanMapping-account.xml</value> 	
-				<value>classpath*:dozer/dozerBeanMapping-sysCode.xml</value>
-				<value>classpath*:dozer/dozerBeanMapping-broker.xml</value>
-				
-			</list> 
-		</property> 
-	</bean>
-	
+	<bean id="pine.dao.BrokerDAO" class="com.netsteadfast.pine.dao.impl.BrokerDAOImpl" />
+	<bean id="pine.service.BrokerService" class="com.netsteadfast.pine.service.impl.BrokerServiceImpl" />
+	     		
 </beans>
