@@ -40,4 +40,8 @@ public class PineConfig {
 		return properties.getProperty("pine.scriptBaseDir");
 	}
 	
+	public static String getServerConfigDir() {
+		return properties.getProperty("pine.serverConfigDir");
+	}
+	
 }
