@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.netsteadfast.base.Constants;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.pine.service.IBrokerService;
 import com.netsteadfast.po.PiBroker;
@@ -56,11 +57,14 @@ public class BrokerAction {
 	@RequestMapping(value = "brokerList.do")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView();
+		mv.addObject(Constants.PAGE_MESSAGE, "");
 		List<BrokerVO> brokers = null;
 		try {
 			DefaultResult<List<BrokerVO>> bResult = this.brokerService.findSimpleResult();
 			if (bResult.getValue() != null) {
 				brokers = bResult.getValue();
+			} else {
+				mv.addObject(Constants.PAGE_MESSAGE, bResult.getSystemMessage().getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <jsp:include page="../top-bar-q.jsp">
+	<jsp:param name="programName" value="Broker management"/>
 	<jsp:param name="refreshUrl" value="./brokerList.do"/>
 	<jsp:param name="createUrl" value="./brokerCreate.do"/>
 </jsp:include>
@@ -54,16 +55,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <td>${item.id}</td>
       <td>${item.name}</td>
       <td>
-<span class="badge badge-default">Default</span>
-<span class="badge badge-primary">Primary</span>
+
 <span class="badge badge-success">Work</span>
-<span class="badge badge-info">Info</span>
 <span class="badge badge-warning">Stop</span>
 <span class="badge badge-danger">No found</span>      
+
       </td>
       <td>
-<a class="btn btn-primary" href="#" onclick="parent.changePage('aa');" role="button">Edit</a>
-<a class="btn btn-danger" href="#" onclick="parent.changePage('bb');" role="button">Delete</a>      	
+      
+<img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('aa');"/>      
+&nbsp;
+<img alt="delete" title="Delete" src="./images/delete.png" onclick="parent.changePage('bb');"/>      	
       </td>
     </tr>    
 </c:forEach>  
@@ -72,7 +74,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
 </c:if>
 <c:if test="${empty brokers}">
-	
+	<div class="alert alert-info" role="alert">
+	  <strong>${pageMessage}</strong>
+	</div>	
 </c:if>
 
 <script>
