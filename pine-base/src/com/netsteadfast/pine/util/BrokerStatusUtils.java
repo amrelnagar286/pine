@@ -19,27 +19,44 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.pine.dao.impl;
+package com.netsteadfast.pine.util;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-import com.netsteadfast.base.dao.BaseDAO;
-import com.netsteadfast.pine.dao.IBrokerDAO;
-import com.netsteadfast.po.PiBroker;
+import com.netsteadfast.base.model.YesNo;
+import com.netsteadfast.pine.server.ServerUtils;
 import com.netsteadfast.vo.BrokerVO;
 
-@Repository("pine.dao.BrokerDAO")
-public class BrokerDAOImpl extends BaseDAO<PiBroker, String> implements IBrokerDAO<PiBroker, String> {
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<BrokerVO> findSimpleList() throws Exception {
-		return this.getCurrentSession().createQuery(
-				"SELECT new com.netsteadfast.vo.BrokerVO(a.oid, a.id, a.name) FROM PiBroker a ORDER BY a.id, a.name ASC ")
-				.setMaxResults(100)
-				.list();
+public class BrokerStatusUtils {
+	
+	public static void checkStatus(List<BrokerVO> brokers) {
+		if (null == brokers) {
+			return;
+		}
+		for (BrokerVO broker : brokers) {
+			broker.setFound(YesNo.NO);
+			broker.setStart(YesNo.NO);
+			if (isFound(broker.getId())) {
+				broker.setFound(YesNo.YES);
+			}
+			if (isWork(broker.getId())) {
+				broker.setStart(YesNo.YES);
+			}
+		}
+	}
+	
+	public static boolean isFound(String id) {
+		if (ServerUtils.get(id) == null) {
+			return false;
+		}
+		return true;
+	}	
+	
+	public static boolean isWork(String id) {
+		if (ServerUtils.get(id) == null) {
+			return false;
+		}
+		return ServerUtils.get(id).isStart();
 	}
 
 }

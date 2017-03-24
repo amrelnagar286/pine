@@ -34,6 +34,10 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 	private String bkPort;
 	private String bkWebsocketPort;
 	
+	// for page show need
+	private String start = "";
+	private String found = "";
+	
 	public BrokerVO() {
 		
 	}
@@ -111,6 +115,22 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setBkWebsocketPort(String bkWebsocketPort) {
 		this.bkWebsocketPort = bkWebsocketPort;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getFound() {
+		return found;
+	}
+
+	public void setFound(String found) {
+		this.found = found;
 	}
 	
 }

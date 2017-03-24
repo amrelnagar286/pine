@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.netsteadfast.base.Constants;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.pine.service.IBrokerService;
+import com.netsteadfast.pine.util.BrokerStatusUtils;
 import com.netsteadfast.po.PiBroker;
 import com.netsteadfast.vo.BrokerVO;
 
@@ -63,6 +64,7 @@ public class BrokerAction {
 			DefaultResult<List<BrokerVO>> bResult = this.brokerService.findSimpleResult();
 			if (bResult.getValue() != null) {
 				brokers = bResult.getValue();
+				BrokerStatusUtils.checkStatus(brokers);
 			} else {
 				mv.addObject(Constants.PAGE_MESSAGE, bResult.getSystemMessage().getValue());
 			}

@@ -88,7 +88,7 @@ function guid() {
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           
-          <a class="dropdown-item" href="#">Device</a>
+          <a class="dropdown-item" href="#">Publish jobs</a>
 		  
 		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do');">Broker</a>
 		  

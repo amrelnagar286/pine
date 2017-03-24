@@ -55,11 +55,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <td>${item.id}</td>
       <td>${item.name}</td>
       <td>
-
-<span class="badge badge-success">Work</span>
-<span class="badge badge-warning">Stop</span>
-<span class="badge badge-danger">No found</span>      
-
+		<c:if test="${\"Y\".equals(item.start)}">
+			<span class="badge badge-success">In service</span>
+		</c:if>
+		<c:if test="${!\"Y\".equals(item.start)}">
+			<span class="badge badge-warning">Stop</span>
+		</c:if>
+		<c:if test="${!\"Y\".equals(item.found)}">
+			<span class="badge badge-danger">Container not found broker</span>
+		</c:if>
       </td>
       <td>
       
