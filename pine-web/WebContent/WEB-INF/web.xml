@@ -18,6 +18,11 @@
   	<listener>
    		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   	</listener>
+  	
+  	<!-- Pine broker start/stop Listener -->
+  	<listener>
+   		<listener-class>com.netsteadfast.pine.sys.BrokerStartListener</listener-class>
+  	</listener>  	
 		
 	<!-- lazy loading enabled in spring -->
 	<filter>
