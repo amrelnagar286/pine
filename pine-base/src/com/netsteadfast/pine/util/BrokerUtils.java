@@ -162,7 +162,7 @@ public class BrokerUtils {
 		return writeConfig( getBroker(id) );
 	}
 	
-	public static void stopAll() throws ServiceException, Exception {
+	public static void stopAll() {
 		ServerUtils.stopAll();
 	}
 	
@@ -174,8 +174,16 @@ public class BrokerUtils {
 		if (brokers == null) {
 			return;
 		}
+		StringBuilder err = new StringBuilder();
 		for (BrokerVO broker : brokers) {
-			start( broker );
+			try {
+				start( broker );
+			} catch (Exception e) {
+				err.append( e.getMessage().toString() ).append("\n");
+			}
+		}
+		if (err.length() > 0) {
+			throw new Exception( err.toString() );
 		}
 	}
 	
