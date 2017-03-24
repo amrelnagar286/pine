@@ -27,7 +27,7 @@ import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.server.ServerUtils;
 import com.netsteadfast.vo.BrokerVO;
 
-public class BrokerStatusUtils {
+public class BrokerUtils {
 	
 	public static void checkStatus(List<BrokerVO> brokers) {
 		if (null == brokers) {
