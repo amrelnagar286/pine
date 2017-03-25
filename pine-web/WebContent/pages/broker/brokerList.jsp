@@ -69,6 +69,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
 <img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('aa');"/>      
 &nbsp;
+<img alt="service" title="Restart service" src="./images/service.png" onclick="parent.changePage('bb');"/>     
+&nbsp;
+<img alt="stop" title="Stop service" src="./images/stop.png" onclick="parent.changePage('bb');"/>     
+&nbsp;
 <img alt="delete" title="Delete" src="./images/delete.png" onclick="parent.changePage('bb');"/>      	
       </td>
     </tr>    
