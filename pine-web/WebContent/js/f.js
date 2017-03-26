@@ -8,9 +8,7 @@ function xhrSendParameter(xhrUrl, jsonParam, successFn, errorFn) {
 	    cache: false,
 	    async: true,
 	    success : function(data, textStatus) {
-			setTimeout(function(){
-				parent.hidePleaseWait();
-			}, 350);   	    	
+	    	parent.hidePleaseWait();  	    	
 			if (data==null || (typeof data=='undefined') ) {
 				alert('Unexpected error!');
 				return;
@@ -26,9 +24,7 @@ function xhrSendParameter(xhrUrl, jsonParam, successFn, errorFn) {
 			successFn(data);
 	    },
 	    error : function(jqXHR, textStatus, errorThrown) {
-			setTimeout(function(){
-				parent.hidePleaseWait();
-			}, 350);   	    	
+	    	parent.hidePleaseWait(); 	    	
 	        alert(textStatus);
 	        errorFn();
 	    }

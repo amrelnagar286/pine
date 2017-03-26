@@ -41,3 +41,11 @@ function guid() {
 	    s4() + '-' + s4() + s4() + s4();
 	  
 }
+
+function toastrInfo(message) {
+	toastr.info( message );
+}
+
+function toastrWarning(message) {
+	toastr.warning( message );
+}

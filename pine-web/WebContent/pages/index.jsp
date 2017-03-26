@@ -17,6 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <jsp:include page="common-inc.jsp"></jsp:include>
 
+<link rel="stylesheet" href="./toastr/toastr.min.css" crossorigin="anonymous">
+<script src="./toastr/toastr.min.js" crossorigin="anonymous"></script>
+
 <style type="text/css">
 
 #mainContant {

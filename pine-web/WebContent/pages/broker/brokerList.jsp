@@ -37,8 +37,12 @@ function restartBroker(oid) {
 						'./startBrokerJson.do',
 						{'oid' : oid},
 						function(data) { 
+							if ('Y' != data.success) {
+								parent.toastrWarning( data.message );
+								return;
+							}
 							if ('Y' == data.success) {
-								alert( data.message );
+								parent.toastrInfo( data.message );
 								parent.changePage("./brokerList.do");
 							}
 						},
@@ -58,8 +62,12 @@ function stopBroker(oid) {
 						'./stopBrokerJson.do',
 						{'oid' : oid},
 						function(data) { 
+							if ('Y' != data.success) {
+								parent.toastrWarning( data.message );
+								return;
+							}							
 							if ('Y' == data.success) {
-								alert( data.message );
+								parent.toastrInfo( data.message );
 								parent.changePage("./brokerList.do");
 							}
 						},
