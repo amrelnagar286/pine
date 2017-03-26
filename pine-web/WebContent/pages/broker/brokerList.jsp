@@ -165,11 +165,6 @@ function deleteBroker(oid) {
 	  <strong>${pageMessage}</strong>
 	</div>	
 </c:if>
-
-<script>
-// test
-//parent.showPleaseWait();
-</script>
             
 </body>
 </html>

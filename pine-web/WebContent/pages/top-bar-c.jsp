@@ -6,8 +6,9 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
 String programName = request.getParameter("programName");
+String backUrl = request.getParameter("backUrl");
 String refreshUrl = request.getParameter("refreshUrl");
-String createUrl = request.getParameter("createUrl");
+String saveFunction = request.getParameter("saveFunction");
 
 %>
 
@@ -15,9 +16,11 @@ String createUrl = request.getParameter("createUrl");
 	<tr valign="top" align="left">
 		<td align="left" width="100%">
 			<div>
+			<img alt="back" title="Back list page" src="./images/back.png" onclick="parent.changePage('<%=backUrl%>');"/>
+			&nbsp;			
 			<img alt="refresh" title="Refresh" src="./images/refresh.png" onclick="parent.changePage('<%=refreshUrl%>');"/>
 			&nbsp;
-			<img alt="create" title="Create new" src="./images/create.png" onclick="parent.changePage('<%=createUrl%>');"/>
+			<img alt="save" title="Save" src="./images/save.png" onclick="<%=saveFunction%>"/>
 			</div>		
 		</td>
 	</tr>
