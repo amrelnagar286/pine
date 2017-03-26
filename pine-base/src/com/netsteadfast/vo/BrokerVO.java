@@ -33,6 +33,7 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 	private String bkPassword;
 	private String bkPort;
 	private String bkWebsocketPort;
+	private String description;
 	
 	// for page show need
 	private String start = "";
@@ -42,14 +43,16 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 		
 	}
 	
-	public BrokerVO(String oid, String id, String name) {
+	public BrokerVO(String oid, String id, String name, String description) {
 		super();
 		this.oid = oid;
 		this.id = id;
 		this.name = name;
+		this.description = description;
 	}	
-	
-	public BrokerVO(String oid, String id, String name, String bkUsername, String bkPassword, String bkPort, String bkWebsocketPort) {
+
+	public BrokerVO(String oid, String id, String name, String bkUsername, String bkPassword, String bkPort,
+			String bkWebsocketPort, String description) {
 		super();
 		this.oid = oid;
 		this.id = id;
@@ -58,6 +61,7 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 		this.bkPassword = bkPassword;
 		this.bkPort = bkPort;
 		this.bkWebsocketPort = bkWebsocketPort;
+		this.description = description;
 	}
 
 	@Override
@@ -115,6 +119,14 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setBkWebsocketPort(String bkWebsocketPort) {
 		this.bkWebsocketPort = bkWebsocketPort;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getStart() {

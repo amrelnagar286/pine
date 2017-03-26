@@ -29,6 +29,7 @@ public class PiBroker extends BaseEntity<String> implements java.io.Serializable
 	private String bkPassword;
 	private String bkPort;
 	private String bkWebsocketPort;
+	private String description;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -50,7 +51,7 @@ public class PiBroker extends BaseEntity<String> implements java.io.Serializable
 	}	
 	
 	public PiBroker(String oid, String id, String name, String bkUsername, String bkPassword, String bkPort,
-			String bkWebsocketPort, String cuserid, Date cdate, String uuserid, Date udate) {
+			String bkWebsocketPort, String description, String cuserid, Date cdate, String uuserid, Date udate) {
 		super();
 		this.oid = oid;
 		this.id = id;
@@ -59,12 +60,13 @@ public class PiBroker extends BaseEntity<String> implements java.io.Serializable
 		this.bkPassword = bkPassword;
 		this.bkPort = bkPort;
 		this.bkWebsocketPort = bkWebsocketPort;
+		this.description = description;
 		this.cuserid = cuserid;
 		this.cdate = cdate;
 		this.uuserid = uuserid;
 		this.udate = udate;
 	}
-	
+
 	@Override
 	@Id
 	@EntityPK(name="oid")
@@ -132,6 +134,15 @@ public class PiBroker extends BaseEntity<String> implements java.io.Serializable
 		this.bkWebsocketPort = bkWebsocketPort;
 	}
 	
+	@Column(name="DESCRIPTION")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	@Column(name="CUSERID")
 	public String getCuserid() {

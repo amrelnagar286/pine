@@ -37,7 +37,7 @@ public class BrokerDAOImpl extends BaseDAO<PiBroker, String> implements IBrokerD
 	@Override
 	public List<BrokerVO> findSimpleList() throws Exception {
 		return this.getCurrentSession().createQuery(
-				"SELECT new com.netsteadfast.vo.BrokerVO(a.oid, a.id, a.name) FROM PiBroker a ORDER BY a.id, a.name ASC ")
+				"SELECT new com.netsteadfast.vo.BrokerVO(a.oid, a.id, a.name, a.description) FROM PiBroker a ORDER BY a.id, a.name ASC ")
 				.setMaxResults(100)
 				.list();
 	}

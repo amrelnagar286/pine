@@ -34,7 +34,11 @@
 		<field>
 			<a>bkWebsocketPort</a>
 			<b>bkWebsocketPort</b>
-		</field>					
+		</field>				
+		<field>
+			<a>description</a>
+			<b>description</b>
+		</field>			
 	</mapping>
 
 	<mapping map-id="broker.vo2po" >
@@ -68,6 +72,10 @@
 			<a>bkWebsocketPort</a>
 			<b>bkWebsocketPort</b>
 		</field>	
+		<field>
+			<a>description</a>
+			<b>description</b>
+		</field>				
 	</mapping>
 	
 </mappings>

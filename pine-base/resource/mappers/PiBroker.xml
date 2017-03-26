@@ -12,6 +12,7 @@
 		<result column="BK_PASSWORD" property="bkPassword"/>
 		<result column="BK_PORT" property="bkPort"/>
 		<result column="BK_WEBSOCKET_PORT" property="bkWebsocketPort"/>
+		<result column="DESCRIPTION" property="description"/>
 		<result column="CUSERID" property="cuserid"/>
 		<result column="CDATE" property="cdate"/>
 		<result column="UUSERID" property="uuserid"/>		

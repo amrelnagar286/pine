@@ -43,6 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <th>#</th>
       <th>ID</th>
       <th>Name</th>
+      <th>Description</th>      
       <th>Status</th>
       <th>Edit/Delete</th>      
     </tr>
@@ -54,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <th scope="row">${myIndex.index+1}</th> 
       <td>${item.id}</td>
       <td>${item.name}</td>
+      <td>${item.description}</td>
       <td>
 		<c:if test="${\"Y\".equals(item.start)}">
 			<span class="badge badge-success">In service</span>

@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.27, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.27, for FreeBSD10.1 (amd64)
 --
 -- Host: localhost    Database: pine
 -- ------------------------------------------------------
@@ -30,6 +30,7 @@ CREATE TABLE `pi_broker` (
   `BK_PASSWORD` varchar(24) DEFAULT NULL,
   `BK_PORT` varchar(5) NOT NULL,
   `BK_WEBSOCKET_PORT` varchar(5) NOT NULL,
+  `DESCRIPTION` varchar(500) DEFAULT NULL,
   `CUSERID` varchar(24) NOT NULL,
   `CDATE` datetime NOT NULL,
   `UUSERID` varchar(24) DEFAULT NULL,
@@ -46,6 +47,7 @@ CREATE TABLE `pi_broker` (
 
 LOCK TABLES `pi_broker` WRITE;
 /*!40000 ALTER TABLE `pi_broker` DISABLE KEYS */;
+INSERT INTO `pi_broker` VALUES ('88f3d585-24eb-41ae-af1f-34ca8e21b220','BK001','Test server!',NULL,NULL,'1991','8881','This is first item!','admin','2017-03-23 20:24:59',NULL,NULL);
 /*!40000 ALTER TABLE `pi_broker` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,4 +127,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-23 13:57:41
+-- Dump completed on 2017-03-26 11:19:12
