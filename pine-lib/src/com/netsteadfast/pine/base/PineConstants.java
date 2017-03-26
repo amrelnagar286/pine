@@ -22,5 +22,7 @@
 package com.netsteadfast.pine.base;
 
 public class PineConstants {
-
+	
+	public static final int MAX_BROKER_SIZE = 32;
+	
 }

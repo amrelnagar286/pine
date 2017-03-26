@@ -26,6 +26,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.base.dao.BaseDAO;
+import com.netsteadfast.pine.base.PineConstants;
 import com.netsteadfast.pine.dao.IBrokerDAO;
 import com.netsteadfast.po.PiBroker;
 import com.netsteadfast.vo.BrokerVO;
@@ -38,7 +39,7 @@ public class BrokerDAOImpl extends BaseDAO<PiBroker, String> implements IBrokerD
 	public List<BrokerVO> findSimpleList() throws Exception {
 		return this.getCurrentSession().createQuery(
 				"SELECT new com.netsteadfast.vo.BrokerVO(a.oid, a.id, a.name, a.description) FROM PiBroker a ORDER BY a.id, a.name ASC ")
-				.setMaxResults(100)
+				.setMaxResults( PineConstants.MAX_BROKER_SIZE )
 				.list();
 	}
 

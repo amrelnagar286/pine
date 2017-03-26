@@ -76,6 +76,31 @@ function stopBroker(oid) {
 	);	
 }
 
+function deleteBroker(oid) {
+	bootbox.confirm(
+			"Delete?", 
+			function(result){ 
+				if (!result) {
+					return;
+				}
+				xhrSendParameter(
+						'./deleteBrokerJson.do',
+						{'oid' : oid},
+						function(data) { 
+							if ('Y' != data.success) {
+								parent.toastrWarning( data.message );
+								return;
+							}							
+							if ('Y' == data.success) {
+								parent.toastrInfo( data.message );
+								parent.changePage("./brokerList.do");
+							}
+						},
+						function(){ parent.changePage("./brokerList.do"); });
+			}
+	);	
+}
+
 </script>
 
 </head>
@@ -127,7 +152,7 @@ function stopBroker(oid) {
 &nbsp;
 <img alt="stop" title="Stop service" src="./images/stop.png" onclick="stopBroker('${item.oid}');"/>     
 &nbsp;
-<img alt="delete" title="Delete" src="./images/delete.png" onclick="parent.changePage('bb');"/>      	
+<img alt="delete" title="Delete" src="./images/delete.png" onclick="deleteBroker('${item.oid}');"/>      	
       </td>
     </tr>    
 </c:forEach>  

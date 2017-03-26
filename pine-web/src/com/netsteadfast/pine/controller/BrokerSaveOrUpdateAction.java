@@ -21,6 +21,10 @@
  */
 package com.netsteadfast.pine.controller;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,15 +33,32 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.netsteadfast.base.SysMessageUtil;
 import com.netsteadfast.base.SysMsgConstants;
+import com.netsteadfast.base.exception.ServiceException;
+import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.model.DefaultRestJsonResultObj;
+import com.netsteadfast.pine.service.IBrokerService;
 import com.netsteadfast.pine.util.BrokerUtils;
+import com.netsteadfast.po.PiBroker;
 import com.netsteadfast.vo.BrokerVO;
 
 @RestController
 @EnableWebMvc
 public class BrokerSaveOrUpdateAction {
 	
+	private IBrokerService<BrokerVO, PiBroker, String> brokerService;
+	
+	public IBrokerService<BrokerVO, PiBroker, String> getBrokerService() {
+		return brokerService;
+	}
+
+	@Autowired
+	@Resource(name="pine.service.BrokerService")
+	@Required		
+	public void setBrokerService(IBrokerService<BrokerVO, PiBroker, String> brokerService) {
+		this.brokerService = brokerService;
+	}
+
 	@RequestMapping(value = "startBrokerJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> startBroker(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
@@ -67,5 +88,29 @@ public class BrokerSaveOrUpdateAction {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "deleteBrokerJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> delete(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			BrokerVO broker = BrokerUtils.getBroker(oid);
+			if (BrokerUtils.isWork( broker.getId() )) {
+				throw new ServiceException("In service, cannot be delete!");
+			}
+			this.brokerService.hibernateSessionClear();
+			BrokerUtils.stop( broker );
+			DefaultResult<Boolean> bResult = this.brokerService.deleteObject(broker);
+			if (bResult.getValue() != null && bResult.getValue()) {
+				result.setValue( oid );
+				result.setSuccess( YesNo.YES );				
+			}
+			result.setMessage( bResult.getSystemMessage().getValue() );
+		} catch (ServiceException se) {
+			result.setMessage( se.getMessage().toString() );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
 
 }
