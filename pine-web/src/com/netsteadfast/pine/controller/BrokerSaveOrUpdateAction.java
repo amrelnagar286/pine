@@ -37,6 +37,20 @@ import com.netsteadfast.pine.util.BrokerUtils;
 @EnableWebMvc
 public class BrokerSaveOrUpdateAction {
 	
+	@RequestMapping(value = "startBrokerJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> startBroker(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			BrokerUtils.start( BrokerUtils.getBroker(oid) );
+			result.setValue( oid );
+			result.setSuccess( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
+	
 	@RequestMapping(value = "stopBrokerJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> stopBroker(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
