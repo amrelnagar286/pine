@@ -21,11 +21,34 @@
  */
 package com.netsteadfast.pine.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import com.netsteadfast.base.SysMessageUtil;
+import com.netsteadfast.base.SysMsgConstants;
+import com.netsteadfast.base.model.YesNo;
+import com.netsteadfast.pine.model.DefaultRestJsonResultObj;
+import com.netsteadfast.pine.util.BrokerUtils;
 
 @RestController
+@EnableWebMvc
 public class BrokerSaveOrUpdateAction {
 	
-	
+	@RequestMapping(value = "stopBrokerJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> stopBroker(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			BrokerUtils.stop( BrokerUtils.getBroker(oid) );
+			result.setValue( oid );
+			result.setSuccess( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}
 
 }

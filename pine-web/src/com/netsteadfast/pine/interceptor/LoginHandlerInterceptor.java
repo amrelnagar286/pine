@@ -47,7 +47,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		Subject subject = SecurityUtils.getSubject();
-		if (StringUtils.isBlank((String)subject.getPrincipal())) {
+		if (subject == null || StringUtils.isBlank((String)subject.getPrincipal())) {
 			String isPineChagePage = request.getParameter("isPineChagePage");
 			if (YesNo.YES.equals(isPineChagePage)) {
 				response.sendRedirect("/pages/system/login_again.jsp");

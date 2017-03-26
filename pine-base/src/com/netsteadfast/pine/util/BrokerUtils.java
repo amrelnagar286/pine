@@ -119,7 +119,24 @@ public class BrokerUtils {
 	}	
 	
 	@SuppressWarnings("unchecked")
-	public static BrokerVO getBroker(String id) throws ServiceException, Exception {
+	public static BrokerVO getBroker(String oid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(oid)) {
+			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_BLANK));
+		}
+		IBrokerService<BrokerVO, PiBroker, String> brokerService = (IBrokerService<BrokerVO, PiBroker, String>) 
+				AppContext.getBean("pine.service.BrokerService");
+		BrokerVO broker = new BrokerVO();
+		broker.setOid(oid);
+		DefaultResult<BrokerVO> result = brokerService.findObjectByOid(broker);
+		if (result.getValue() == null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		broker = result.getValue();
+		return broker;
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public static BrokerVO getBrokerById(String id) throws ServiceException, Exception {
 		if (StringUtils.isBlank(id)) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_BLANK));
 		}
@@ -135,7 +152,7 @@ public class BrokerUtils {
 		return broker;
 	}
 	
-	public static void stop(String id) throws Exception {
+	public static void stopById(String id) throws Exception {
 		ServerUtils.stop( id );
 	}
 	
@@ -143,8 +160,8 @@ public class BrokerUtils {
 		ServerUtils.stop( broker.getId() );
 	}
 	
-	public static void start(String id) throws ServiceException, Exception {
-		BrokerVO broker = getBroker(id);
+	public static void startById(String id) throws ServiceException, Exception {
+		BrokerVO broker = getBrokerById(id);
 		start( broker );
 	}
 	
@@ -155,11 +172,11 @@ public class BrokerUtils {
 		ServerUtils.start(broker.getId());
 	}
 	
-	public static String writeConfig(String id) throws ServiceException, Exception {
+	public static String writeConfigById(String id) throws ServiceException, Exception {
 		if (StringUtils.isBlank(id)) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_BLANK));
 		}
-		return writeConfig( getBroker(id) );
+		return writeConfig( getBrokerById(id) );
 	}
 	
 	public static void stopAll() {
