@@ -27,7 +27,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 function saveBroker() {
-	alert('test');
+	xhrSendParameter(
+			'./saveBrokerJson.do',
+			{
+				'id' : 							$("#id").val(),
+				'name' : 						$("#name").val(),
+				'port' : 						$("#port").val(),
+				'websocketPort' : 		$("#websocketPort").val(),
+				'username' : 				$("#username").val(),
+				'password' : 				$("#password").val(),
+				'description' : 			$("#description").val()
+			},
+			function(data) { 
+				if ('Y' != data.success) {
+					parent.toastrWarning( data.message );
+					return;
+				}
+				if ('Y' == data.success) {
+					parent.toastrInfo( data.message );
+					parent.changePage("./brokerList.do");
+				}
+			},
+			function(){ parent.changePage("./brokerList.do"); 
+	});
 }
 
 </script>
