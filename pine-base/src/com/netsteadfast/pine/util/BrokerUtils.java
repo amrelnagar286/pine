@@ -166,6 +166,13 @@ public class BrokerUtils {
 	}
 	
 	public static void start(BrokerVO broker) throws Exception {
+		if (null == broker || StringUtils.isBlank(broker.getId())) {
+			throw new IllegalArgumentException("id blank");
+		}
+		if (ServerUtils.get(broker.getId()) != null && ServerUtils.get(broker.getId()).isStart()) {
+			logger.warn( "Broker : " + broker.getId() + " already in service." );
+			return;
+		}
 		String configFullPath = writeConfig(broker);
 		ServerUtils.remove(broker.getId());
 		ServerUtils.add(broker.getId(), configFullPath, new BrokerServerInterceptHandler());
@@ -196,7 +203,11 @@ public class BrokerUtils {
 			try {
 				start( broker );
 			} catch (Exception e) {
-				err.append( e.getMessage().toString() ).append("\n");
+				if (e.getMessage() != null) {
+					err.append( e.getMessage().toString() ).append("\n");
+				} else {
+					err.append( e.toString() ).append("\n");
+				}
 			}
 		}
 		if (err.length() > 0) {

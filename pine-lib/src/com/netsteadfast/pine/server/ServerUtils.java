@@ -74,7 +74,7 @@ public class ServerUtils {
 		if (!bsData.isStart()) {
 			return;
 		}
-		bsData.getServer().stopServer();
+		bsData.stop();
 	}
 	
 	public synchronized static void remove(String id) throws Exception {

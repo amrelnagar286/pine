@@ -32,6 +32,7 @@ import com.netsteadfast.base.SysMsgConstants;
 import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.model.DefaultRestJsonResultObj;
 import com.netsteadfast.pine.util.BrokerUtils;
+import com.netsteadfast.vo.BrokerVO;
 
 @RestController
 @EnableWebMvc
@@ -41,7 +42,9 @@ public class BrokerSaveOrUpdateAction {
 	public @ResponseBody DefaultRestJsonResultObj<String> startBroker(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
 		try {
-			BrokerUtils.start( BrokerUtils.getBroker(oid) );
+			BrokerVO broker = BrokerUtils.getBroker(oid);
+			BrokerUtils.stop( broker );
+			BrokerUtils.start( broker );
 			result.setValue( oid );
 			result.setSuccess( YesNo.YES );
 			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );

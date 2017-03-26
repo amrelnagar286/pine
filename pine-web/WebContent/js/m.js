@@ -19,9 +19,9 @@ function hidePleaseWait() {
 
 function changePage(url) {
 	if ( url.indexOf("?") > -1 ) {
-		url += '&<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y&isPageRefresh=' + guid();
+		url += '&' + _m_PAGE_CHANGE_URL_PARAM + '=Y&isPageRefresh=' + guid();
 	} else {
-		url += '?<%=Constants.PAGE_CHANGE_URL_PARAM%>=Y&isPageRefresh=' + guid();
+		url += '?' + _m_PAGE_CHANGE_URL_PARAM + '=Y&isPageRefresh=' + guid();
 	}
 	$("#mainFrame").attr('src', url);
 }

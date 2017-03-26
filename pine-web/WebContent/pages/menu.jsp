@@ -8,6 +8,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 %>
 
+<script type="text/javascript">
+
+var _m_PAGE_CHANGE_URL_PARAM = '<%=Constants.PAGE_CHANGE_URL_PARAM%>';
+
+</script>
+
+
 <script type="text/javascript" src="<%=basePath%>/js/m.js"></script>
 
 <!-- Modal Start here-->

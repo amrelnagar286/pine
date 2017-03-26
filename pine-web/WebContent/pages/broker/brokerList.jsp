@@ -16,6 +16,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <jsp:include page="../common-inc.jsp"></jsp:include>
 
+<script type="text/javascript" src="<%=basePath%>/js/f.js"></script>
+
 <style type="text/css">
 
 
@@ -23,6 +25,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 
 <script type="text/javascript">
+
+function restartBroker(oid) {
+	bootbox.confirm(
+			"Restart service?", 
+			function(result){ 
+				if (!result) {
+					return;
+				}
+				xhrSendParameter(
+						'./startBrokerJson.do',
+						{'oid' : oid},
+						function(data) { 
+							if ('Y' == data.success) {
+								alert( data.message );
+								parent.changePage("./brokerList.do");
+							}
+						},
+						function(){ parent.changePage("./brokerList.do"); });
+			}
+	);
+}
+
+function stopBroker(oid) {
+	bootbox.confirm(
+			"Stop service?", 
+			function(result){ 
+				if (!result) {
+					return;
+				}
+				xhrSendParameter(
+						'./stopBrokerJson.do',
+						{'oid' : oid},
+						function(data) { 
+							if ('Y' == data.success) {
+								alert( data.message );
+								parent.changePage("./brokerList.do");
+							}
+						},
+						function(){ parent.changePage("./brokerList.do"); });
+			}
+	);	
+}
 
 </script>
 
@@ -71,9 +115,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
 <img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('aa');"/>      
 &nbsp;
-<img alt="service" title="Restart service" src="./images/service.png" onclick="parent.changePage('bb');"/>     
+<img alt="service" title="Restart service" src="./images/service.png" onclick="restartBroker('${item.oid}');"/>     
 &nbsp;
-<img alt="stop" title="Stop service" src="./images/stop.png" onclick="parent.changePage('bb');"/>     
+<img alt="stop" title="Stop service" src="./images/stop.png" onclick="stopBroker('${item.oid}');"/>     
 &nbsp;
 <img alt="delete" title="Delete" src="./images/delete.png" onclick="parent.changePage('bb');"/>      	
       </td>
