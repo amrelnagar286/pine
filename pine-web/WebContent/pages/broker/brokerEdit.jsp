@@ -26,11 +26,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 
-function saveBroker() {
+function updateBroker() {
 	xhrSendParameter(
-			'./brokerSaveJson.do',
+			'./brokerUpdateJson.do',
 			{
-				'id' : 							$("#id").val(),
+				'oid' :							'${broker.oid}',
+				'id' : 							'${broker.id}',
 				'name' : 						$("#name").val(),
 				'port' : 						$("#port").val(),
 				'websocketPort' : 		$("#websocketPort").val(),
@@ -59,43 +60,43 @@ function saveBroker() {
 <body>
 
 <jsp:include page="../top-bar-c.jsp">
-	<jsp:param name="programName" value="Broker (Create)"/>
+	<jsp:param name="programName" value="Broker (Edit)"/>
 	<jsp:param name="backUrl" value="./brokerList.do"/>	
-	<jsp:param name="refreshUrl" value="./brokerCreate.do"/>
-	<jsp:param name="saveFunction" value="saveBroker();"/>
+	<jsp:param name="refreshUrl" value="./brokerEdit.do?oid=${broker.oid}"/>
+	<jsp:param name="saveFunction" value="updateBroker();"/>
 </jsp:include>
 
   <div class="form-group">
     <label for="id">ID&nbsp;<font color="RED">*</font></label>
-    <input type="text" class="form-control" id="id" placeholder="input broker id">
+    <input type="text" class="form-control" id="id" placeholder="input broker id" value="${broker.id}" readonly="readonly">
   </div>
   <div class="form-group">
     <label for="name">Name&nbsp;<font color="RED">*</font></label>
-    <input type="text" class="form-control" id="name" placeholder="input broker name">
+    <input type="text" class="form-control" id="name" placeholder="input broker name" value="${broker.name}">
   </div>
   <div class="form-group">
     <label for="port">Port&nbsp;<font color="RED">*</font></label>
-    <input type="text" class="form-control" id="port" placeholder="input broker port">
+    <input type="text" class="form-control" id="port" placeholder="input broker port" value="${broker.bkPort}">
   </div>
   <div class="form-group">
     <label for="websocketPort">Web Socket Port&nbsp;<font color="RED">*</font></label>
-    <input type="text" class="form-control" id="websocketPort" placeholder="input broker web socket port">
+    <input type="text" class="form-control" id="websocketPort" placeholder="input broker web socket port" value="${broker.bkWebsocketPort}">
   </div>  
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" class="form-control" id="username" placeholder="input broker username">
+    <input type="text" class="form-control" id="username" placeholder="input broker username" value="${broker.bkUsername}">
   </div>    
    <div class="form-group">
     <label for="password">Password</label>
-    <input type="text" class="form-control" id="password" placeholder="input broker password">
+    <input type="text" class="form-control" id="password" placeholder="input broker password" value="${broker.bkPassword}">
   </div>    
    <div class="form-group">
     <label for="description">Description</label>
-    <textarea rows="3" cols="15" class="form-control" id="description" placeholder="input description"></textarea>
+    <textarea rows="3" cols="15" class="form-control" id="description" placeholder="input description">${broker.description}</textarea>
   </div>    
   
-<button type="button" class="btn btn-primary" onclick="saveBroker();">Save</button>
-<button type="button" class="btn btn-primary" onclick="parent.changePage('./brokerCreate.do');">Clear</button>
+<button type="button" class="btn btn-primary" onclick="updateBroker();">Save</button>
+<button type="button" class="btn btn-primary" onclick="parent.changePage('./brokerEdit.do?oid=${broker.oid}');">Clear</button>
   
 </body>
 </html>

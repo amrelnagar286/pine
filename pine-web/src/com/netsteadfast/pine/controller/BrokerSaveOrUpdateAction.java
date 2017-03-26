@@ -129,7 +129,41 @@ public class BrokerSaveOrUpdateAction {
 		result.setSuccess( YesNo.YES );
 	}
 	
-	@RequestMapping(value = "startBrokerJson.do", produces = "application/json")
+	private void updateBrokerData(HttpServletRequest request, DefaultRestJsonResultObj<String> result) throws ControllerException, ServiceException, Exception {
+		String oid = request.getParameter("oid");
+		if (StringUtils.isBlank(oid)) {
+			throw new ControllerException( SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT) );
+		}		
+		BrokerVO broker = this.getRequestParam(request);
+		broker.setOid(oid);
+		
+		Map<String, Object> paramMapSelf = new HashMap<String, Object>();
+		Map<String, Object> paramMapOthe = new HashMap<String, Object>();
+		paramMapSelf.put("oid", oid);
+		paramMapSelf.put("bkPort", broker.getBkPort());
+		paramMapOthe.put("bkPort", broker.getBkPort());
+		if ( this.brokerService.countByParams(paramMapSelf) == 0 && this.brokerService.countByParams(paramMapOthe) > 0 ) {
+			throw new ControllerException("Same port number found in other broker, please change!");
+		}
+		paramMapSelf.clear();
+		paramMapOthe.clear();
+		paramMapSelf.put("oid", oid);
+		paramMapSelf.put("bkWebsocketPort", broker.getBkWebsocketPort());
+		paramMapOthe.put("bkWebsocketPort", broker.getBkWebsocketPort());
+		if ( this.brokerService.countByParams(paramMapSelf) == 0 && this.brokerService.countByParams(paramMapOthe) > 0 ) {
+			throw new ControllerException("Same web socket port number found in other broker, please change!");
+		}				
+		DefaultResult<BrokerVO> bResult = this.brokerService.updateObject(broker);
+		if (bResult.getValue() == null) {
+			throw new ServiceException( bResult.getSystemMessage().getValue() );
+		}
+		broker = bResult.getValue();
+		result.setValue( broker.getOid() );
+		result.setMessage( bResult.getSystemMessage().getValue() );
+		result.setSuccess( YesNo.YES );		
+	}
+	
+	@RequestMapping(value = "brokerStartJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> startBroker(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
 		try {
@@ -145,7 +179,7 @@ public class BrokerSaveOrUpdateAction {
 		return result;
 	}	
 	
-	@RequestMapping(value = "stopBrokerJson.do", produces = "application/json")
+	@RequestMapping(value = "brokerStopJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> stopBroker(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
 		try {
@@ -159,7 +193,7 @@ public class BrokerSaveOrUpdateAction {
 		return result;
 	}
 	
-	@RequestMapping(value = "deleteBrokerJson.do", produces = "application/json")
+	@RequestMapping(value = "brokerDeleteJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> delete(@RequestParam(name = "oid") String oid) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
 		try {
@@ -183,7 +217,7 @@ public class BrokerSaveOrUpdateAction {
 		return result;
 	}	
 	
-	@RequestMapping(value = "saveBrokerJson.do", produces = "application/json")
+	@RequestMapping(value = "brokerSaveJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> save(HttpServletRequest request) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
 		try {
@@ -197,5 +231,20 @@ public class BrokerSaveOrUpdateAction {
 		}
 		return result;
 	}	
+	
+	@RequestMapping(value = "brokerUpdateJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> update(HttpServletRequest request) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			this.updateBrokerData(request, result);
+		} catch (ControllerException ce) {
+			result.setMessage( ce.getMessage().toString() );
+		} catch (ServiceException se) {
+			result.setMessage( se.getMessage().toString() );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}		
 
 }

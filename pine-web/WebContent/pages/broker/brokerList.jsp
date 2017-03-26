@@ -34,7 +34,7 @@ function restartBroker(oid) {
 					return;
 				}
 				xhrSendParameter(
-						'./startBrokerJson.do',
+						'./brokerStartJson.do',
 						{'oid' : oid},
 						function(data) { 
 							if ('Y' != data.success) {
@@ -59,7 +59,7 @@ function stopBroker(oid) {
 					return;
 				}
 				xhrSendParameter(
-						'./stopBrokerJson.do',
+						'./brokerStopJson.do',
 						{'oid' : oid},
 						function(data) { 
 							if ('Y' != data.success) {
@@ -84,7 +84,7 @@ function deleteBroker(oid) {
 					return;
 				}
 				xhrSendParameter(
-						'./deleteBrokerJson.do',
+						'./brokerDeleteJson.do',
 						{'oid' : oid},
 						function(data) { 
 							if ('Y' != data.success) {
@@ -146,7 +146,7 @@ function deleteBroker(oid) {
       </td>
       <td>
       
-<img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('aa');"/>      
+<img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('./brokerEdit.do?oid=${item.oid}');"/>      
 &nbsp;
 <img alt="service" title="Restart service" src="./images/service.png" onclick="restartBroker('${item.oid}');"/>     
 &nbsp;

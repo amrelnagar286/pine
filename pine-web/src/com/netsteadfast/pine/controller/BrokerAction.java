@@ -70,6 +70,7 @@ public class BrokerAction {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv.addObject(Constants.PAGE_MESSAGE, e.getMessage().toString());
 		}
 		mv.setViewName("broker/brokerList");
 		mv.addObject("brokers", brokers);
@@ -78,14 +79,30 @@ public class BrokerAction {
 	
 	@RequestMapping(value = "brokerCreate.do")
 	public String create() {
-		
 		return "broker/brokerCreate";
 	}
 	
 	@RequestMapping(value = "brokerEdit.do")
-	public String edit(@RequestParam(name="oid") String oid) {
-		
-		return "broker/brokerEdit";
+	public ModelAndView edit(@RequestParam(name="oid") String oid) {
+		String viewPage = "system/searchNoData";
+		ModelAndView mv = new ModelAndView();
+		mv.addObject(Constants.PAGE_MESSAGE, "");		
+		BrokerVO broker = null;
+		try {
+			broker = new BrokerVO();
+			broker.setOid(oid);
+			DefaultResult<BrokerVO> result = this.brokerService.findObjectByOid(broker);
+			if (result.getValue() != null) {
+				broker = result.getValue();
+				viewPage = "broker/brokerEdit";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject(Constants.PAGE_MESSAGE, e.getMessage().toString());
+		}
+		mv.setViewName( viewPage );
+		mv.addObject("broker", broker);
+		return mv;		
 	}
 	
 }
