@@ -31,6 +31,11 @@ import io.moquette.interception.messages.InterceptSubscribeMessage;
 import io.moquette.interception.messages.InterceptUnsubscribeMessage;
 
 public class BrokerServerInterceptHandler implements InterceptHandler {
+	private String brokerId = "";
+	
+	public BrokerServerInterceptHandler(String brokerId) {
+		this.brokerId = brokerId;
+	}
 
 	@Override
 	public void onConnect(InterceptConnectMessage connectMessage) {
@@ -65,6 +70,14 @@ public class BrokerServerInterceptHandler implements InterceptHandler {
 	@Override
 	public void onUnsubscribe(InterceptUnsubscribeMessage unsubscribeMessage) {
 		// log to database
+	}
+
+	public String getBrokerId() {
+		return brokerId;
+	}
+
+	public void setBrokerId(String brokerId) {
+		this.brokerId = brokerId;
 	}
 
 }

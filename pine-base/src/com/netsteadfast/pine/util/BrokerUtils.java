@@ -185,7 +185,7 @@ public class BrokerUtils {
 		}
 		String configFullPath = writeConfig(broker);
 		ServerUtils.remove(broker.getId());
-		ServerUtils.add(broker.getId(), configFullPath, new BrokerServerInterceptHandler());
+		ServerUtils.add(broker.getId(), configFullPath, new BrokerServerInterceptHandler(broker.getId()));
 		ServerUtils.start(broker.getId());
 	}
 	
