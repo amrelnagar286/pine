@@ -1,5 +1,9 @@
 topic*			鄰家的派豆龍
 qos*			2
+At most once (0)
+At least once (1)
+Exactly once (2)
+
 broker* 		tcp://localhost:1991 (能下拉選當前的broker)
 clientId*		C001
 username
@@ -17,5 +21,7 @@ scriptId		EXPR001
 
 
 task options 兩種選1個方式, 下次處理publish間隔時間
-only start ( only one )
-every second 3600
+first on start ( 啟動時立即處發 )
+Interval seconds '0'  (60 ~ 86400)  '0' 表示一啟動發動一次就好了, 當 '0' 時 first-on-start必須是啟動的, 
+如sec為60但first-on-start為 'N' , 啟動後會等60秒後才發第1次pub
+如sec為60但first-on-start為 'Y' , 啟動後立即發pub, 間格60秒後會在發一次pub
