@@ -160,6 +160,16 @@ public class BrokerUtils {
 		ServerUtils.stop( broker.getId() );
 	}
 	
+	public static void stopAndRemoveById(String id) throws Exception {
+		ServerUtils.stop( id );
+		ServerUtils.remove( id );
+	}
+	
+	public static void stopAndRemove(BrokerVO broker) throws Exception {
+		ServerUtils.stop( broker.getId() );
+		ServerUtils.remove( broker.getId() );
+	}	
+	
 	public static void startById(String id) throws ServiceException, Exception {
 		BrokerVO broker = getBrokerById(id);
 		start( broker );
@@ -189,6 +199,11 @@ public class BrokerUtils {
 	public static void stopAll() {
 		ServerUtils.stopAll();
 	}
+	
+	public static void stopAndRemoveAll() {
+		ServerUtils.stopAll();
+		ServerUtils.removeAll();
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public static void startAll() throws ServiceException, Exception {

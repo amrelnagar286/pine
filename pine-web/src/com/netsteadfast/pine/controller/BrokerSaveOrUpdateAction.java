@@ -202,7 +202,7 @@ public class BrokerSaveOrUpdateAction {
 				throw new ServiceException("In service, cannot be delete!");
 			}
 			this.brokerService.hibernateSessionClear();
-			BrokerUtils.stop( broker );
+			BrokerUtils.stopAndRemove(broker);
 			DefaultResult<Boolean> bResult = this.brokerService.deleteObject(broker);
 			if (bResult.getValue() != null && bResult.getValue()) {
 				result.setValue( oid );
