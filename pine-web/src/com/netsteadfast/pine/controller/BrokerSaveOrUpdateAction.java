@@ -43,6 +43,7 @@ import com.netsteadfast.base.exception.ControllerException;
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.base.model.YesNo;
+import com.netsteadfast.pine.base.PineConstants;
 import com.netsteadfast.pine.model.DefaultRestJsonResultObj;
 import com.netsteadfast.pine.service.IBrokerService;
 import com.netsteadfast.pine.util.BrokerUtils;
@@ -109,6 +110,9 @@ public class BrokerSaveOrUpdateAction {
 	
 	private void saveBrokerData(HttpServletRequest request, DefaultRestJsonResultObj<String> result) throws ControllerException, ServiceException, Exception {
 		BrokerVO broker = this.getRequestParam(request);
+		if ( this.brokerService.countByParams(null) >= PineConstants.MAX_BROKER_SIZE ) {
+			throw new ServiceException("Broker limit is " + PineConstants.MAX_BROKER_SIZE);
+		}
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("bkPort", broker.getBkPort());
 		if ( this.brokerService.countByParams(paramMap) > 0 ) {
@@ -246,5 +250,34 @@ public class BrokerSaveOrUpdateAction {
 		}
 		return result;
 	}		
+	
+	@RequestMapping(value = "brokerRestartAllJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> startAllBroker() {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			BrokerUtils.stopAndRemoveAll();
+			BrokerUtils.startAll();
+			result.setSuccess( YesNo.YES );
+			result.setValue( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "brokerStopAllJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> stopAllBroker() {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			BrokerUtils.stopAll();
+			result.setSuccess( YesNo.YES );
+			result.setValue( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );			
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
 
 }

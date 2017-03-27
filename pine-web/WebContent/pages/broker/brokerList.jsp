@@ -101,6 +101,57 @@ function deleteBroker(oid) {
 	);	
 }
 
+
+function restartAllBroker() {
+	bootbox.confirm(
+			"Restart all service?", 
+			function(result){ 
+				if (!result) {
+					return;
+				}
+				xhrSendParameter(
+						'./brokerRestartAllJson.do',
+						{ },
+						function(data) { 
+							if ('Y' != data.success) {
+								parent.toastrWarning( data.message );
+								return;
+							}							
+							if ('Y' == data.success) {
+								parent.toastrInfo( data.message );
+								parent.changePage("./brokerList.do");
+							}
+						},
+						function(){ parent.changePage("./brokerList.do"); });
+			}
+	);	
+}
+
+function stopAllBroker() {
+	bootbox.confirm(
+			"Stop all service?", 
+			function(result){ 
+				if (!result) {
+					return;
+				}
+				xhrSendParameter(
+						'./brokerStopAllJson.do',
+						{ },
+						function(data) { 
+							if ('Y' != data.success) {
+								parent.toastrWarning( data.message );
+								return;
+							}							
+							if ('Y' == data.success) {
+								parent.toastrInfo( data.message );
+								parent.changePage("./brokerList.do");
+							}
+						},
+						function(){ parent.changePage("./brokerList.do"); });
+			}
+	);	
+}
+
 </script>
 
 </head>
@@ -146,13 +197,14 @@ function deleteBroker(oid) {
       </td>
       <td>
       
-<img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('./brokerEdit.do?oid=${item.oid}');"/>      
-&nbsp;
-<img alt="service" title="Restart service" src="./images/service.png" onclick="restartBroker('${item.oid}');"/>     
-&nbsp;
-<img alt="stop" title="Stop service" src="./images/stop.png" onclick="stopBroker('${item.oid}');"/>     
-&nbsp;
-<img alt="delete" title="Delete" src="./images/delete.png" onclick="deleteBroker('${item.oid}');"/>      	
+		<img alt="edit" title="Edit" src="./images/edit.png" onclick="parent.changePage('./brokerEdit.do?oid=${item.oid}');"/>      
+		&nbsp;
+		<img alt="service" title="Restart service" src="./images/service.png" onclick="restartBroker('${item.oid}');"/>     
+		&nbsp;
+		<img alt="stop" title="Stop service" src="./images/stop.png" onclick="stopBroker('${item.oid}');"/>     
+		&nbsp;
+		<img alt="delete" title="Delete" src="./images/delete.png" onclick="deleteBroker('${item.oid}');"/>   
+   	
       </td>
     </tr>    
 </c:forEach>  
@@ -160,6 +212,24 @@ function deleteBroker(oid) {
   </tbody>
 </table>
 </c:if>
+
+<c:if test="${!empty brokers}">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
+	<tr valign="top" align="left">
+		<td align="left" width="100%">
+			<div>
+
+				<img alt="service" title="Restart all service" src="./images/service.png" onclick="restartAllBroker();"/>     
+				&nbsp;
+				<img alt="stop" title="Stop all service" src="./images/stop.png" onclick="stopAllBroker();"/>     
+				&nbsp;
+				
+			</div>		
+		</td>
+	</tr>
+</table>
+</c:if>
+
 <c:if test="${empty brokers}">
 	<div class="alert alert-info" role="alert">
 	  <strong>${pageMessage}</strong>
