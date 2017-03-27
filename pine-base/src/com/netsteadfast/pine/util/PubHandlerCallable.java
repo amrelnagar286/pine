@@ -59,6 +59,21 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 	public void setRun(boolean run) {
 		this.run = run;
 	}
+	
+	private Object getValueFromExpr() throws Exception {
+		if (StringUtils.isBlank(this.data.getContent()) && !StringUtils.isBlank(this.data.getContentExpr())) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("publish", this.data);
+			paramMap.put("value", "");
+			try {
+				ScriptExpressionUtils.execute(ScriptTypeCode.GROOVY, this.data.getContentExpr(), paramMap, paramMap);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return StringUtils.defaultString( (String)paramMap.get("value") );
+		}		
+		return "";
+	}
 
 	private void action() throws Exception {
 		if (null == this.data) {
@@ -69,16 +84,8 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 		if (!StringUtils.isBlank(this.data.getContent())) {
 			content = this.data.getContent();
 		}
-		if (StringUtils.isBlank(content) && !StringUtils.isBlank(this.data.getContentExpr())) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("publish", this.data);
-			paramMap.put("value", "");
-			try {
-				ScriptExpressionUtils.execute(ScriptTypeCode.GROOVY, this.data.getContentExpr(), paramMap, paramMap);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			content = StringUtils.defaultString( (String)paramMap.get("value") );
+		if (!StringUtils.isBlank(this.data.getContentExpr())) {
+			content = String.valueOf( this.getValueFromExpr() );
 		}
 		ClientData client = ClientUtils.get(this.data.getClientId());
 		if (null == client) {
@@ -108,6 +115,9 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 		while (this.run) {
 			Thread.sleep(intervalSecMs);
 			try {
+				if (!StringUtils.isBlank(this.data.getContentExpr())) {
+					content = String.valueOf( this.getValueFromExpr() );
+				}
 				ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
 			} catch (Exception e) {
 				e.printStackTrace();

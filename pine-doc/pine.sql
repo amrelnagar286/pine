@@ -92,6 +92,7 @@ CREATE TABLE `pi_publish` (
 
 LOCK TABLES `pi_publish` WRITE;
 /*!40000 ALTER TABLE `pi_publish` DISABLE KEYS */;
+INSERT INTO `pi_publish` VALUES ('eb0f3b8a-ef20-4de3-8690-b79b2a78635d','C001','Client-01','temperature','2','tcp://127.0.0.1:1991',NULL,NULL,NULL,'value=String.valueOf( java.lang.Math.abs(new java.util.Random().nextInt() % 35 + 1) );','E001',NULL,NULL,'60','Y','Test!','admin','2017-03-27 19:04:20',NULL,NULL);
 /*!40000 ALTER TABLE `pi_publish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-27 18:39:18
+-- Dump completed on 2017-03-27 19:30:39
