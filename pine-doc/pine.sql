@@ -52,6 +52,50 @@ INSERT INTO `pi_broker` VALUES ('88f3d585-24eb-41ae-af1f-34ca8e21b220','BK001','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pi_publish`
+--
+
+DROP TABLE IF EXISTS `pi_publish`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pi_publish` (
+  `OID` char(36) NOT NULL,
+  `CLIENT_ID` varchar(12) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `TOPIC` varchar(150) NOT NULL,
+  `QOS` varchar(1) NOT NULL DEFAULT '2',
+  `BK_BROKER_ADDR` varchar(100) NOT NULL,
+  `BK_USERNAME` varchar(24) DEFAULT NULL,
+  `BK_PASSWORD` varchar(24) DEFAULT NULL,
+  `CONTENT` varchar(4000) DEFAULT NULL,
+  `CONTENT_EXPR` varchar(4000) DEFAULT NULL,
+  `EVENT_ID` varchar(12) DEFAULT NULL,
+  `SCRIPT_TYPE` varchar(10) DEFAULT NULL,
+  `SCRIPT_ID` varchar(20) DEFAULT NULL,
+  `INTERVAL_SEC` varchar(5) NOT NULL DEFAULT '86400',
+  `FIRST_ON_START` varchar(1) NOT NULL DEFAULT 'Y',
+  `DESCRIPTION` varchar(500) DEFAULT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`CLIENT_ID`),
+  KEY `IDX_1` (`NAME`),
+  KEY `IDX_2` (`TOPIC`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pi_publish`
+--
+
+LOCK TABLES `pi_publish` WRITE;
+/*!40000 ALTER TABLE `pi_publish` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pi_publish` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_account`
 --
 
@@ -127,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-26 11:19:12
+-- Dump completed on 2017-03-27 18:39:18
