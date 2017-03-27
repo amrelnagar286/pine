@@ -25,4 +25,6 @@ public class PineConstants {
 	
 	public static final int MAX_BROKER_SIZE = 32;
 	
+	public static final int MAX_PUBLISH_JOB_SIZE = 50;
+	
 }

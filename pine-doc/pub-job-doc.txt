@@ -1,0 +1,21 @@
+topic*			鄰家的派豆龍
+qos*			2
+broker* 		tcp://localhost:1991 (能下拉選當前的broker)
+clientId*		C001
+username
+password
+
+兩種產content的方式只能用一種
+content				求求你，派豆龙帮帮我吧。小静她，我的妹妹迷路了，现在肯定一个人独自哭泣了！拜托了，派豆龙。
+contentExpression 	使用腳本產生content
+contentExpression scriptType 腳本 類別groovy/BSH
+
+
+for client options 用來決定client端是否要處理自己的腳本
+scriptType		groovy/BSH
+scriptId		EXPR001
+
+
+task options 兩種選1個方式, 下次處理publish間隔時間
+only start ( only one )
+every second 3600

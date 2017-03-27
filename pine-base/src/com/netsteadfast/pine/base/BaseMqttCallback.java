@@ -21,10 +21,12 @@
  */
 package com.netsteadfast.pine.base;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import com.netsteadfast.base.model.ScriptTypeCode;
 import com.netsteadfast.pine.base.model.BaseMessageContent;
 import com.netsteadfast.pine.base.model.BaseMessageProcess;
 import com.netsteadfast.pine.util.DataProcessUtils;
@@ -44,8 +46,10 @@ public class BaseMqttCallback implements MqttCallback {
 	@Override
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		BaseMessageContent messageContent = BaseMessageProcess.build().readValue2MessageContentFromJson(message.toString());
-		System.out.println("messageArrived message=" + message.toString() ); // for TEST now
-		DataProcessUtils.processSubscribe(messageContent);
+		//System.out.println("messageArrived message=" + message.toString() ); // for TEST now
+		if (!StringUtils.isBlank(messageContent.getScriptId()) && ScriptTypeCode.isTypeCode(messageContent.getScriptType())) {
+			DataProcessUtils.processSubscribe(messageContent);
+		}
 	}
 	
 }
