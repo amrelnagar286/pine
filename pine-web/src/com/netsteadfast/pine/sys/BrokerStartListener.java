@@ -31,7 +31,7 @@ public class BrokerStartListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		try {
-			BrokerUtils.startAll();
+			BrokerUtils.stopAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
