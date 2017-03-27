@@ -21,11 +21,18 @@
  */
 package com.netsteadfast.pine.service;
 
+import java.util.List;
+
+import com.netsteadfast.base.exception.ServiceException;
+import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.base.service.IBaseService;
+import com.netsteadfast.vo.PublishVO;
 
 public interface IPublishService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
 	public static String MAPPER_ID_PO2VO="publish.po2vo";
 	public static String MAPPER_ID_VO2PO="publish.vo2po";
+	
+	public DefaultResult<List<PublishVO>> findSimpleResult() throws ServiceException, Exception;
 	
 }

@@ -43,6 +43,10 @@ public class PublishVO extends BaseValueObj implements java.io.Serializable {
 	private String firstOnStart;
 	private String description;
 	
+	// for page show need
+	private String run = "";
+	private String found = "";
+	
 	public PublishVO() {
 		
 	}
@@ -210,6 +214,22 @@ public class PublishVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getRun() {
+		return run;
+	}
+
+	public void setRun(String run) {
+		this.run = run;
+	}
+
+	public String getFound() {
+		return found;
+	}
+
+	public void setFound(String found) {
+		this.found = found;
 	}
 	
 }

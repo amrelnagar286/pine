@@ -49,7 +49,7 @@ var _m_PAGE_CHANGE_URL_PARAM = '<%=Constants.PAGE_CHANGE_URL_PARAM%>';
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           
-          <a class="dropdown-item" href="#">Publish job</a>
+          <a class="dropdown-item" href="#" onclick="changePage('./publishList.do');">Publish job</a>
 		  
 		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do');">Broker</a>
 		  

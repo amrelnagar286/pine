@@ -35,6 +35,7 @@ import com.netsteadfast.base.SysMessageUtil;
 import com.netsteadfast.base.SysMsgConstants;
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.model.DefaultResult;
+import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.client.ClientUtils;
 import com.netsteadfast.pine.service.IPublishService;
 import com.netsteadfast.po.PiPublish;
@@ -77,6 +78,22 @@ public class PublishUtils {
 		publish = result.getValue();
 		return publish;
 	}	
+	
+	public static void checkStatus(List<PublishVO> publishList) {
+		if (null == publishList) {
+			return;
+		}
+		for (PublishVO publish : publishList) {
+			publish.setFound( YesNo.NO );
+			publish.setRun( YesNo.NO );
+			if (isFound(publish.getClientId())) {
+				publish.setFound( YesNo.YES );
+			}
+			if (isRun(publish.getClientId())) {
+				publish.setRun( YesNo.YES );
+			}
+		}
+	}
 	
 	public static boolean isFound(String id) {
 		if (ClientUtils.get(id) == null) {

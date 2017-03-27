@@ -21,9 +21,14 @@
  */
 package com.netsteadfast.pine.dao;
 
+import java.util.List;
+
 import com.netsteadfast.base.dao.IBaseDAO;
 import com.netsteadfast.po.PiPublish;
+import com.netsteadfast.vo.PublishVO;
 
 public interface IPublishDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<PiPublish, String> {
+	
+	public List<PublishVO> findSimpleList() throws Exception;
 
 }

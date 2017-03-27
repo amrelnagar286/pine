@@ -21,13 +21,26 @@
  */
 package com.netsteadfast.pine.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.base.dao.BaseDAO;
+import com.netsteadfast.pine.base.PineConstants;
 import com.netsteadfast.pine.dao.IPublishDAO;
 import com.netsteadfast.po.PiPublish;
+import com.netsteadfast.vo.PublishVO;
 
 @Repository("pine.dao.PublishDAO")
 public class PublishDAOImpl extends BaseDAO<PiPublish, String> implements IPublishDAO<PiPublish, String> {
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PublishVO> findSimpleList() throws Exception {
+		return this.getCurrentSession().createQuery(
+				"SELECT new com.netsteadfast.vo.PublishVO(a.oid, a.clientId, a.name, a.topic, a.qos, a.bkBrokerAddr, a.intervalSec, a.firstOnStart, a.description) FROM PiPublish a ORDER BY a.clientId, a.name ASC ")
+				.setMaxResults( PineConstants.MAX_PUBLISH_JOB_SIZE )
+				.list();
+	}
 
 }
