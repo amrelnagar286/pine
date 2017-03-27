@@ -23,7 +23,12 @@
   	<listener>
    		<listener-class>com.netsteadfast.pine.sys.BrokerStartListener</listener-class>
   	</listener>  	
-		
+	
+  	<!-- Pine publish start/stop Listener -->
+  	<listener>
+   		<listener-class>com.netsteadfast.pine.sys.PublishStartListener</listener-class>
+  	</listener>
+  	
 	<!-- lazy loading enabled in spring -->
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>

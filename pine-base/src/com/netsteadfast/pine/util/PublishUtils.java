@@ -22,6 +22,7 @@
 package com.netsteadfast.pine.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -91,17 +92,17 @@ public class PublishUtils {
 		return false;
 	}
 	
-	public void pub(String oid) throws ServiceException, Exception {
+	public static void pub(String oid) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublish(oid);
 		pub( publish );
 	}	
 	
-	public void pubById(String clientId) throws ServiceException, Exception {
+	public static void pubById(String clientId) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublishById(clientId);
 		pub( publish );		
 	}	
 	
-	public void pub(PublishVO publish) throws ServiceException, Exception {
+	public static void pub(PublishVO publish) throws ServiceException, Exception {
 		if (null == publish) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT));
 		}
@@ -112,17 +113,17 @@ public class PublishUtils {
 		pubHandlerMap.put(publish.getClientId(), pubHandler);
 	}
 	
-	public void stop(String oid) throws ServiceException, Exception {
+	public static void stop(String oid) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublish(oid);
 		stop( publish );
 	}	
 	
-	public void stopById(String clientId) throws ServiceException, Exception {
+	public static void stopById(String clientId) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublishById(clientId);
 		stop( publish );		
 	}	
 	
-	public void stop(PublishVO publish) throws ServiceException, Exception {
+	public static void stop(PublishVO publish) throws ServiceException, Exception {
 		if (null == publish) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT));
 		}
@@ -134,17 +135,17 @@ public class PublishUtils {
 		ClientUtils.disconnect( publish.getClientId() );
 	}
 	
-	public void clear(String oid) throws ServiceException, Exception {
+	public static void clear(String oid) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublish(oid);
 		clear( publish );
 	}	
 	
-	public void clearById(String clientId) throws ServiceException, Exception {
+	public static void clearById(String clientId) throws ServiceException, Exception {
 		PublishVO publish = PublishUtils.getPublishById(clientId);
 		clear( publish );		
 	}	
 	
-	public void clear(PublishVO publish) throws ServiceException, Exception {
+	public static void clear(PublishVO publish) throws ServiceException, Exception {
 		if (null == publish) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT));
 		}
@@ -154,6 +155,25 @@ public class PublishUtils {
 		stop( publish );
 		pubHandlerMap.remove( publish.getClientId() );
 		ClientUtils.remove( publish.getClientId() );
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void startAll() throws ServiceException, Exception {
+		IPublishService<PublishVO, PiPublish, String> publishService = (IPublishService<PublishVO, PiPublish, String>)
+				AppContext.getBean("pine.service.PublishService");
+		List<PublishVO> pubList = publishService.findListVOByParams( null );
+		if (null == pubList || pubList.size() < 1) {
+			return;
+		}
+		for (PublishVO publish : pubList) {
+			pub(publish);
+		}
+	}
+	
+	public static void stopAll() throws Exception {
+		for (Map.Entry<String, PubHandlerCallable> entry : pubHandlerMap.entrySet()) {
+			clear( entry.getValue().getData() );
+		}
 	}
 	
 }
