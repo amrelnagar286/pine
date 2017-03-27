@@ -73,7 +73,11 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("publish", this.data);
 			paramMap.put("value", "");
-			ScriptExpressionUtils.execute(ScriptTypeCode.GROOVY, this.data.getContentExpr(), paramMap, paramMap);
+			try {
+				ScriptExpressionUtils.execute(ScriptTypeCode.GROOVY, this.data.getContentExpr(), paramMap, paramMap);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			content = StringUtils.defaultString( (String)paramMap.get("value") );
 		}
 		ClientData client = ClientUtils.get(this.data.getClientId());
@@ -83,19 +87,31 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 		}
 		
 		if ( intervalSecMs < 60000 ) { // 小於 60 秒的, FIRST_ON_START 一定是 'Y'
-			ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
-			ClientUtils.disconnect(this.data.getClientId());
+			try {
+				ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+				ClientUtils.disconnect(this.data.getClientId());				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			this.run = false;
 			return;
 		}
 		
 		if (YesNo.YES.equals(this.data.getFirstOnStart())) {
-			ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+			try {
+				ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		while (this.run) {
 			Thread.sleep(intervalSecMs);
-			ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+			try {
+				ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
