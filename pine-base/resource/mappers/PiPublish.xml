@@ -1,0 +1,62 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PiPublish">
+
+	<resultMap type="com.netsteadfast.po.PiPublish" id="baseResultMap">
+		<id column="OID" property="oid"/>
+		<result column="CLIENT_ID" property="clientId"/>
+		<result column="NAME" property="name"/>
+		<result column="TOPIC" property="topic"/>
+		<result column="QOS" property="qos"/>
+		<result column="BK_BROKER_ADDR" property="bkBrokerAddr"/>
+		<result column="BK_USERNAME" property="bkUsername"/>
+		<result column="BK_PASSWORD" property="bkPassword"/>
+		<result column="CONTENT" property="content"/>
+		<result column="CONTENT_EXPR" property="contentExpr"/>
+		<result column="EVENT_ID" property="eventId"/>
+		<result column="SCRIPT_TYPE" property="scriptType"/>
+		<result column="SCRIPT_ID" property="scriptId"/>
+		<result column="INTERVAL_SEC" property="intervalSec"/>
+		<result column="FIRST_ON_START" property="firstOnStart"/>
+		<result column="DESCRIPTION" property="description"/>		
+		<result column="CUSERID" property="cuserid"/>
+		<result column="CDATE" property="cdate"/>
+		<result column="UUSERID" property="uuserid"/>		
+		<result column="UDATE" property="udate"/>		
+	</resultMap>
+	
+	<select id="selectByParams" resultMap="baseResultMap" >
+		select * from pi_publish where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>			
+		<if test="clientId != null">
+			AND CLIENT_ID = #{clientId}
+		</if>	
+		<if test="name != null">
+			AND NAME = #{name}
+		</if>			
+		<if test="topic != null">
+			AND TOPIC = #{topic}
+		</if>								
+	</select>
+	
+	<select id="selectByValue" resultMap="baseResultMap" >
+		select * from pi_publish where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>			
+		<if test="clientId != null">
+			AND CLIENT_ID = #{clientId}
+		</if>	
+		<if test="name != null">
+			AND NAME = #{name}
+		</if>			
+		<if test="topic != null">
+			AND TOPIC = #{topic}
+		</if>						
+	</select>	
+	
+</mapper>

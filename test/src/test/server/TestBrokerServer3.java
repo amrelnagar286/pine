@@ -12,7 +12,7 @@ public class TestBrokerServer3 {
 	public void testServer() throws Exception {
 		
 		System.out.println("begin....");
-		ServerUtils.add("BS003", "/home/git2/pine/test/resource/conf1/moquette.conf", new BrokerServerInterceptHandler());
+		ServerUtils.add("BS003", "/home/git2/pine/test/resource/conf1/moquette.conf", new BrokerServerInterceptHandler("BK001"));
 		ServerUtils.startAll();
 		System.out.println("completed....");
 		

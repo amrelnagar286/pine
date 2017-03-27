@@ -36,6 +36,7 @@
                 <value>classpath*:mappers/TbAccount.xml</value>
                 <value>classpath*:mappers/TbSysCode.xml</value>
                 <value>classpath*:mappers/PiBroker.xml</value>
+                <value>classpath*:mappers/PiPublish.xml</value>
                 
             </list>
         </property>          		  		

@@ -14,6 +14,8 @@
     <import resource="classpath*:applicationContext/standard/applicationContext-account.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysCode.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-broker.xml" />
+    <import resource="classpath*:applicationContext/standard/applicationContext-publish.xml" />
+    
     
     <!-- Dozer -->
     <import resource="classpath*:applicationContext/standard/applicationContext-dozer.xml" />
