@@ -29,6 +29,11 @@
    		<listener-class>com.netsteadfast.pine.sys.PublishStartListener</listener-class>
   	</listener>
   	
+  	<!-- Pine example subscribe start/stop Listener -->
+  	<listener>
+   		<listener-class>com.netsteadfast.pine.sys.ExampleSubscribeListener</listener-class>
+  	</listener>  	
+  	
 	<!-- lazy loading enabled in spring -->
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
