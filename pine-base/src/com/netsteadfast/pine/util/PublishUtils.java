@@ -173,6 +173,9 @@ public class PublishUtils {
 			return;
 		}
 		stop( publish );
+		PubHandlerCallable pubHandler = pubHandlerMap.get(publish.getClientId());
+		pubHandler = null;
+		pubHandlerMap.put(publish.getClientId(), pubHandler);
 		pubHandlerMap.remove( publish.getClientId() );
 		ClientUtils.remove( publish.getClientId() );
 	}

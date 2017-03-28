@@ -61,7 +61,7 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 	}
 	
 	private Object getValueFromExpr() throws Exception {
-		if (StringUtils.isBlank(this.data.getContent()) && !StringUtils.isBlank(this.data.getContentExpr())) {
+		if (!StringUtils.isBlank(this.data.getContentExpr())) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("publish", this.data);
 			paramMap.put("value", "");
@@ -112,13 +112,15 @@ public class PubHandlerCallable implements Callable<PublishVO> {
 			}
 		}
 		
-		while (this.run) {
+		while (true) {
 			Thread.sleep(intervalSecMs);
 			try {
 				if (!StringUtils.isBlank(this.data.getContentExpr())) {
 					content = String.valueOf( this.getValueFromExpr() );
 				}
-				ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+				if (this.run) {
+					ClientUtils.publish(this.data.getClientId(), this.data.getTopic(), this.data.getEventId(), this.data.getName(), this.data.getScriptId(), this.data.getScriptType(), content, "");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.27, for FreeBSD10.1 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.27, for Win32 (x86)
 --
 -- Host: localhost    Database: pine
 -- ------------------------------------------------------
@@ -92,7 +92,7 @@ CREATE TABLE `pi_publish` (
 
 LOCK TABLES `pi_publish` WRITE;
 /*!40000 ALTER TABLE `pi_publish` DISABLE KEYS */;
-INSERT INTO `pi_publish` VALUES ('eb0f3b8a-ef20-4de3-8690-b79b2a78635d','C001','Client-01','temperature','2','tcp://127.0.0.1:1991',NULL,NULL,NULL,'value=String.valueOf( java.lang.Math.abs(new java.util.Random().nextInt() % 35 + 1) );','E001',NULL,NULL,'60','Y','Test!','admin','2017-03-27 19:04:20',NULL,NULL);
+INSERT INTO `pi_publish` VALUES ('bf2301d7-e72a-4fb8-a3da-5f61a4487f4b','P02','PUB-02','power','2','tcp://127.0.0.1:1991','','','','value = String.valueOf( java.util.concurrent.ThreadLocalRandom.current().nextInt(1000, 2500) );','','','','120','Y','This is a test publish!','tester','2017-03-28 09:48:31','tester','2017-03-28 11:55:11'),('eb0f3b8a-ef20-4de3-8690-b79b2a78635d','P01','PUB-01','temperature','2','tcp://127.0.0.1:1991',NULL,NULL,NULL,'value=String.valueOf( java.lang.Math.abs(new java.util.Random().nextInt() % 35 + 1) );','E001',NULL,NULL,'60','Y','This is a test publish!','admin','2017-03-27 19:04:20',NULL,NULL);
 /*!40000 ALTER TABLE `pi_publish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-27 19:30:39
+-- Dump completed on 2017-03-28 11:55:40
