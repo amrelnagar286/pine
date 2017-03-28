@@ -24,6 +24,8 @@ package com.netsteadfast.pine.base;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.netsteadfast.base.model.YesNo;
+
 public class PineConfig {
 	
 	private static Properties properties = new Properties();
@@ -43,5 +45,9 @@ public class PineConfig {
 	public static String getServerConfigDir() {
 		return properties.getProperty("pine.serverConfigDir");
 	}
+	
+	public static boolean getEnableLog() {
+		return YesNo.YES.equals(properties.getProperty("pine.enableLog"));
+	}	
 	
 }

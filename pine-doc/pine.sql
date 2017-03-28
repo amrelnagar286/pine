@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.27, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.27, for FreeBSD10.1 (amd64)
 --
 -- Host: localhost    Database: pine
 -- ------------------------------------------------------
@@ -49,6 +49,41 @@ LOCK TABLES `pi_broker` WRITE;
 /*!40000 ALTER TABLE `pi_broker` DISABLE KEYS */;
 INSERT INTO `pi_broker` VALUES ('88f3d585-24eb-41ae-af1f-34ca8e21b220','BK001','Test server!',NULL,NULL,'1991','8881','This is first item!','admin','2017-03-23 20:24:59',NULL,NULL);
 /*!40000 ALTER TABLE `pi_broker` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pi_event_log`
+--
+
+DROP TABLE IF EXISTS `pi_event_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pi_event_log` (
+  `OID` char(36) NOT NULL,
+  `BROKER_ID` varchar(100) NOT NULL,
+  `EVENT_TYPE` varchar(20) NOT NULL,
+  `CLIENT_ID` varchar(100) NOT NULL,
+  `TOPIC` varchar(150) DEFAULT NULL,
+  `MSG` varchar(4000) DEFAULT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  KEY `IDX_1` (`BROKER_ID`),
+  KEY `IDX_2` (`EVENT_TYPE`),
+  KEY `IDX_3` (`CLIENT_ID`),
+  KEY `IDX_4` (`CDATE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pi_event_log`
+--
+
+LOCK TABLES `pi_event_log` WRITE;
+/*!40000 ALTER TABLE `pi_event_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pi_event_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -172,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-28 11:55:40
+-- Dump completed on 2017-03-28 20:53:39

@@ -21,6 +21,18 @@
  */
 package com.netsteadfast.pine.server;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.shiro.dao.DataAccessException;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
+import com.netsteadfast.pine.base.PineConfig;
+import com.netsteadfast.util.DataUtils;
+
 import io.moquette.interception.InterceptHandler;
 import io.moquette.interception.messages.InterceptAcknowledgedMessage;
 import io.moquette.interception.messages.InterceptConnectMessage;
@@ -31,7 +43,9 @@ import io.moquette.interception.messages.InterceptSubscribeMessage;
 import io.moquette.interception.messages.InterceptUnsubscribeMessage;
 
 public class BrokerServerInterceptHandler implements InterceptHandler {
+	protected Logger logger=Logger.getLogger(BrokerServerInterceptHandler.class);
 	private String brokerId = "";
+	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	public BrokerServerInterceptHandler(String brokerId) {
 		this.brokerId = brokerId;
@@ -39,37 +53,37 @@ public class BrokerServerInterceptHandler implements InterceptHandler {
 
 	@Override
 	public void onConnect(InterceptConnectMessage connectMessage) {
-		// log to database
+		this.log2Db( "connect", connectMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onConnectionLost(InterceptConnectionLostMessage connectionLostMessage) {
-		
+		this.log2Db( "connectionLost", connectionLostMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onDisconnect(InterceptDisconnectMessage disconnectMessage) {
-		// log to database
+		this.log2Db( "disconnect", disconnectMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onMessageAcknowledged(InterceptAcknowledgedMessage acknowledgedMessage) {
-		
+		this.log2Db( "messageAcknowledged", acknowledgedMessage.getMsg().getClientID(), acknowledgedMessage.getMsg().getTopic(), new String(acknowledgedMessage.getMsg().getMessage().array()) );
 	}
 
 	@Override
 	public void onPublish(InterceptPublishMessage publishMessage) {
-		// log to database
+		this.log2Db( "publish", publishMessage.getClientID(), publishMessage.getTopicName(), new String(publishMessage.getPayload().array()) );
 	}
 
 	@Override
 	public void onSubscribe(InterceptSubscribeMessage subscribeMessage) {
-		// log to database
+		this.log2Db( "subscribe", subscribeMessage.getClientID(), subscribeMessage.getTopicFilter(), null );
 	}
 
 	@Override
 	public void onUnsubscribe(InterceptUnsubscribeMessage unsubscribeMessage) {
-		// log to database
+		this.log2Db( "unsubscribe", unsubscribeMessage.getClientID(), unsubscribeMessage.getTopicFilter(), null );
 	}
 
 	public String getBrokerId() {
@@ -79,5 +93,46 @@ public class BrokerServerInterceptHandler implements InterceptHandler {
 	public void setBrokerId(String brokerId) {
 		this.brokerId = brokerId;
 	}
-
+	
+	private void log2Db(String type, String clientId, String topic, String msg) {
+		if (!PineConfig.getEnableLog()) {
+			return;
+		}
+		if ( this.jdbcTemplate == null ) {
+			try {
+				this.jdbcTemplate = DataUtils.getJdbcTemplate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if ( this.jdbcTemplate == null ) {
+			logger.error("jdbcTemplate null");
+			logger.warn(this.getBrokerId() + ", " + type + ", " + clientId + ", " + topic + ", " + msg);
+			return;
+		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("oid", java.util.UUID.randomUUID().toString());
+		paramMap.put("brokerId", this.getBrokerId());
+		paramMap.put("eventType", type);
+		paramMap.put("clientId", ( StringUtils.isBlank(clientId) ? "unknown" : clientId ) );
+		paramMap.put("topic", (StringUtils.defaultString(topic).length() > 150 ? topic.substring(0, 150) : topic) );
+		paramMap.put("msg", (StringUtils.defaultString(msg).length() > 4000 ? msg.substring(0, 4000) : msg) );
+		paramMap.put("cuserid", "sys");
+		paramMap.put("cdate", new Date());
+		
+		try {
+			this.jdbcTemplate.update(
+					"insert into pi_event_log(OID, BROKER_ID, EVENT_TYPE, CLIENT_ID, TOPIC, MSG, CUSERID, CDATE) values(:oid, :brokerId, :eventType, :clientId, :topic, :msg, :cuserid, :cdate)", 
+					paramMap);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		paramMap.clear();
+		paramMap = null;
+	}
+	
 }
