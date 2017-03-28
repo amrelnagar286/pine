@@ -24,6 +24,10 @@ package com.netsteadfast.pine.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.netsteadfast.base.Constants;
+import com.netsteadfast.pine.util.ExampleSubscribe;
 
 @Controller
 public class IndexAction {
@@ -33,5 +37,15 @@ public class IndexAction {
 		
 		return "index";
 	}
-
+	
+	@RequestMapping(value = "/exampleDashboard.do", method = RequestMethod.GET)
+	public ModelAndView exampleDashboard() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject(Constants.PAGE_MESSAGE, ExampleSubscribe.getErr());
+		mv.addObject("power", ExampleSubscribe.getPower());
+		mv.addObject("temp", ExampleSubscribe.getTemp());
+		mv.setViewName( "dashboard/exampleDashboard" );
+		return mv;
+	}
+	
 }

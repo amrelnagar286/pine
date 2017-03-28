@@ -17,7 +17,9 @@ String createUrl = request.getParameter("createUrl");
 			<div>
 			<img alt="refresh" title="Refresh" src="./images/refresh.png" onclick="parent.changePage('<%=refreshUrl%>');"/>
 			&nbsp;
+			<% if (!"".equals(createUrl) && null != createUrl) { %>
 			<img alt="create" title="Create new" src="./images/create.png" onclick="parent.changePage('<%=createUrl%>');"/>
+			<% } %>
 			</div>		
 		</td>
 	</tr>

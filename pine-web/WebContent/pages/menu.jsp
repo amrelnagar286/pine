@@ -52,19 +52,21 @@ var _m_PAGE_CHANGE_URL_PARAM = '<%=Constants.PAGE_CHANGE_URL_PARAM%>';
           <a class="dropdown-item" href="#" onclick="changePage('./publishList.do');">Publish job</a>
 		  
 		  <a class="dropdown-item" href="#" onclick="changePage('./brokerList.do');">Broker</a>
-		  
+		  <!--  
 		  <a class="dropdown-item" href="#">Log</a>
-		  
+		  -->
 		  <div class="dropdown-divider"></div>
 		  <a class="dropdown-item" href="./index.do">Refresh</a>
           
         </div>
-      </li>	
+      </li>
+      <!-- 	
       <li class="nav-item">
         <a class="nav-link" href="./index.do"><b>Status</b></a>
       </li>              
+      -->
       <li class="nav-item">
-        <a class="nav-link" href="./index.do"><b>Example-Dashboard</b></a>
+        <a class="nav-link" href="#" onclick="changePage('./exampleDashboard.do');"><b>Example-Dashboard</b></a>
       </li>          
       <li class="nav-item">
         <a class="nav-link" href="#" onclick="changePage('./pages/about.html');"><b>About</b></a>
