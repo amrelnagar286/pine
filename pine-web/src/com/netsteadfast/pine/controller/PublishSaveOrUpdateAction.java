@@ -32,6 +32,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -46,6 +47,7 @@ import com.netsteadfast.base.model.YesNo;
 import com.netsteadfast.pine.base.PineConstants;
 import com.netsteadfast.pine.model.DefaultRestJsonResultObj;
 import com.netsteadfast.pine.service.IPublishService;
+import com.netsteadfast.pine.util.PublishUtils;
 import com.netsteadfast.po.PiPublish;
 import com.netsteadfast.util.SimpleUtils;
 import com.netsteadfast.vo.PublishVO;
@@ -225,5 +227,89 @@ public class PublishSaveOrUpdateAction {
 		}
 		return result;
 	}		
+	
+	@RequestMapping(value = "publishDeleteJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> delete(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			PublishVO publish = PublishUtils.getPublish(oid);
+			if (PublishUtils.isRun(publish.getClientId())) {
+				throw new ServiceException("In publish, cannot be delete!");
+			}
+			this.publishService.hibernateSessionClear();
+			PublishUtils.stopAndClear(publish);
+			DefaultResult<Boolean> pResult = this.publishService.deleteObject(publish);
+			if (pResult.getValue() != null && pResult.getValue()) {
+				result.setValue( oid );
+				result.setSuccess( YesNo.YES );				
+			}
+			result.setMessage( pResult.getSystemMessage().getValue() );
+		} catch (ServiceException se) {
+			result.setMessage( se.getMessage().toString() );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}		
+	
+	@RequestMapping(value = "publishStartJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> startPublish(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			PublishVO publish = PublishUtils.getPublish(oid);
+			PublishUtils.stopAndClear(publish);
+			PublishUtils.pub(publish);
+			result.setValue( oid );
+			result.setSuccess( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
+	
+	@RequestMapping(value = "publishStopJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> stopPublish(@RequestParam(name = "oid") String oid) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			PublishVO publish = PublishUtils.getPublish(oid);
+			PublishUtils.stop(publish);
+			result.setValue( oid );
+			result.setSuccess( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
+	
+	@RequestMapping(value = "publishRestartAllJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> startAllPublish() {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			PublishUtils.stopAll();
+			PublishUtils.startAll();
+			result.setSuccess( YesNo.YES );
+			result.setValue( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "publishStopAllJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> stopAllPublish() {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			PublishUtils.stopAll();
+			result.setSuccess( YesNo.YES );
+			result.setValue( YesNo.YES );
+			result.setMessage( SysMessageUtil.get(SysMsgConstants.UPDATE_SUCCESS) );			
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}	
 	
 }

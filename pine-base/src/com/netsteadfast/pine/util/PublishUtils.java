@@ -177,6 +177,11 @@ public class PublishUtils {
 		ClientUtils.remove( publish.getClientId() );
 	}
 	
+	public static void stopAndClear(PublishVO publish) throws ServiceException, Exception {
+		stop(publish);
+		clear(publish);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static void startAll() throws ServiceException, Exception {
 		IPublishService<PublishVO, PiPublish, String> publishService = (IPublishService<PublishVO, PiPublish, String>)
@@ -196,7 +201,7 @@ public class PublishUtils {
 	
 	public static void stopAll() throws Exception {
 		for (Map.Entry<String, PubHandlerCallable> entry : pubHandlerMap.entrySet()) {
-			clear( entry.getValue().getData() );
+			stop( entry.getValue().getData() );
 		}
 	}
 	
