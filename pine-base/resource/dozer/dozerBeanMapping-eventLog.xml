@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+	http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	
+	<mapping map-id="eventLog.po2vo" >
+		<class-a>com.netsteadfast.po.PiEventLog</class-a>
+		<class-b>com.netsteadfast.vo.EventLogVO</class-b>
+		<field>
+			<a>oid</a>
+			<b>oid</b>
+		</field>
+		<field>
+			<a>brokerId</a>
+			<b>brokerId</b>
+		</field>
+		<field>
+			<a>eventType</a>
+			<b>eventType</b>
+		</field>	
+		<field>
+			<a>clientId</a>
+			<b>clientId</b>
+		</field>	
+		<field>
+			<a>topic</a>
+			<b>topic</b>
+		</field>					
+		<field>
+			<a>msg</a>
+			<b>msg</b>
+		</field>			
+	</mapping>
+
+	<mapping map-id="eventLog.vo2po" >
+		<class-a>com.netsteadfast.vo.EventLogVO</class-a>
+		<class-b>com.netsteadfast.po.PiEventLog</class-b>
+		<field>
+			<a>oid</a>
+			<b>oid</b>
+		</field>
+		<field>
+			<a>brokerId</a>
+			<b>brokerId</b>
+		</field>
+		<field>
+			<a>eventType</a>
+			<b>eventType</b>
+		</field>	
+		<field>
+			<a>clientId</a>
+			<b>clientId</b>
+		</field>	
+		<field>
+			<a>topic</a>
+			<b>topic</b>
+		</field>					
+		<field>
+			<a>msg</a>
+			<b>msg</b>
+		</field>					
+	</mapping>
+	
+</mappings>

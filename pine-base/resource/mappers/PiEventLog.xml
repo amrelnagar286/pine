@@ -1,0 +1,46 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PiEventLog">
+
+	<resultMap type="com.netsteadfast.po.PiEventLog" id="baseResultMap">
+		<id column="OID" property="oid"/>
+		<result column="BROKER_ID" property="brokerId"/>
+		<result column="EVENT_TYPE" property="eventType"/>
+		<result column="CLIENT_ID" property="clientId"/>
+		<result column="TOPIC" property="topic"/>
+		<result column="MSG" property="msg"/>
+		<result column="CUSERID" property="cuserid"/>
+		<result column="CDATE" property="cdate"/>
+		<result column="UUSERID" property="uuserid"/>		
+		<result column="UDATE" property="udate"/>		
+	</resultMap>
+	
+	<select id="selectByParams" resultMap="baseResultMap" >
+		select * from pi_event_log where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>			
+		<if test="brokerId != null">
+			AND BROKER_ID = #{brokerId}
+		</if>	
+		<if test="eventType != null">
+			AND EVENT_TYPE = #{eventType}
+		</if>								
+	</select>
+	
+	<select id="selectByValue" resultMap="baseResultMap" >
+		select * from pi_event_log where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>			
+		<if test="brokerId != null">
+			AND BROKER_ID = #{brokerId}
+		</if>	
+		<if test="eventType != null">
+			AND EVENT_TYPE = #{eventType}
+		</if>				
+	</select>	
+	
+</mapper>
