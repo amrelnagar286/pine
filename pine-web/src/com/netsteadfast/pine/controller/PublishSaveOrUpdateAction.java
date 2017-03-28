@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.netsteadfast.base.SysMessageUtil;
+import com.netsteadfast.base.SysMsgConstants;
 import com.netsteadfast.base.exception.ControllerException;
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.model.DefaultResult;
@@ -169,6 +171,31 @@ public class PublishSaveOrUpdateAction {
 		result.setSuccess( YesNo.YES );
 	}
 	
+	private void updatePublishData(HttpServletRequest request, DefaultRestJsonResultObj<String> result) throws ControllerException, ServiceException, Exception {
+		String oid = request.getParameter("oid");
+		if (StringUtils.isBlank(oid)) {
+			throw new ControllerException( SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT) );
+		}		
+		PublishVO publish = this.getRequestParam(request);
+		publish.setOid(oid);
+		Map<String, Object> paramMapSelf = new HashMap<String, Object>();
+		Map<String, Object> paramMapOthe = new HashMap<String, Object>();
+		paramMapSelf.put("oid", oid);
+		paramMapSelf.put("topic", publish.getTopic());
+		paramMapOthe.put("topic", publish.getTopic());
+		if ( this.publishService.countByParams(paramMapSelf) == 0 && this.publishService.countByParams(paramMapOthe) > 0 ) {
+			throw new ControllerException("Same topic in other publish, please change!");
+		}			
+		DefaultResult<PublishVO> pResult = this.publishService.updateObject(publish);
+		if (pResult.getValue() == null) {
+			throw new ServiceException( pResult.getSystemMessage().getValue() );
+		}
+		publish = pResult.getValue();
+		result.setValue( publish.getOid() );
+		result.setMessage( pResult.getSystemMessage().getValue() );
+		result.setSuccess( YesNo.YES );
+	}
+	
 	@RequestMapping(value = "publishSaveJson.do", produces = "application/json")
 	public @ResponseBody DefaultRestJsonResultObj<String> save(HttpServletRequest request) {
 		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
@@ -184,5 +211,19 @@ public class PublishSaveOrUpdateAction {
 		return result;
 	}
 	
+	@RequestMapping(value = "publishUpdateJson.do", produces = "application/json")
+	public @ResponseBody DefaultRestJsonResultObj<String> update(HttpServletRequest request) {
+		DefaultRestJsonResultObj<String> result = DefaultRestJsonResultObj.build();
+		try {
+			this.updatePublishData(request, result);
+		} catch (ControllerException ce) {
+			result.setMessage( ce.getMessage().toString() );
+		} catch (ServiceException se) {
+			result.setMessage( se.getMessage().toString() );
+		} catch (Exception e) {
+			result.setMessage( e.getMessage().toString() );
+		}
+		return result;
+	}		
 	
 }
