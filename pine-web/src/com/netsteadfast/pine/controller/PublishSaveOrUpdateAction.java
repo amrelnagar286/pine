@@ -156,7 +156,7 @@ public class PublishSaveOrUpdateAction {
 	private void savePublishData(HttpServletRequest request, DefaultRestJsonResultObj<String> result) throws ControllerException, ServiceException, Exception {
 		PublishVO publish = getRequestParam(request);
 		if ( this.publishService.countByParams(null) > PineConstants.MAX_PUBLISH_JOB_SIZE ) {
-			throw new ServiceException("Publish job limit is " + PineConstants.MAX_BROKER_SIZE);
+			throw new ServiceException("Publish job limit is " + PineConstants.MAX_PUBLISH_JOB_SIZE);
 		}
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("topic", publish.getTopic());
