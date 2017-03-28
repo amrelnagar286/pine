@@ -186,7 +186,11 @@ public class PublishUtils {
 			return;
 		}
 		for (PublishVO publish : pubList) {
-			pub(publish);
+			try {
+				pub(publish);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
