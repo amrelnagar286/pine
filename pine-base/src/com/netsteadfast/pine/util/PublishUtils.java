@@ -123,6 +123,9 @@ public class PublishUtils {
 		if (null == publish) {
 			throw new ServiceException(SysMessageUtil.get(SysMsgConstants.PARAMS_INCORRECT));
 		}
+		if (!ClientUtils.testConnection(publish.getBkBrokerAddr())) {
+			throw new Exception("ClientId: " + publish.getClientId() + " - " + publish.getName() + " , address: " + publish.getBkBrokerAddr() + " test connection fail!");
+		}
 		clear( publish );
 		ExecutorService executorService = Executors.newFixedThreadPool( 1 );
 		PubHandlerCallable pubHandler = null;

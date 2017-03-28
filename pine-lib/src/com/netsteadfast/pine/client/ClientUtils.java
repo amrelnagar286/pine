@@ -21,6 +21,10 @@
  */
 package com.netsteadfast.pine.client;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,6 +42,34 @@ import com.netsteadfast.pine.base.model.BaseMessageProcess;
 public class ClientUtils {
 	
 	private static Map<String, ClientData> clients = new LinkedHashMap<String, ClientData>();
+	
+	public static boolean testConnection(String brokerAddress) {
+		boolean conn = false;
+		String bAddr = brokerAddress.replaceAll("tcp://", "").replaceAll("TCP://", "");
+		Socket s = null;
+		try {
+			s = new Socket();
+			s.connect(new InetSocketAddress(bAddr.split(":")[0], Integer.parseInt(bAddr.split(":")[1])), 4000);
+			conn = true;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if ( s != null ) {
+			if (s.isConnected()) {
+				try {
+					s.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			s = null;
+		}
+		return conn;
+	}
 	
 	public static String randomClientId() {
 		return java.util.UUID.randomUUID().toString();
