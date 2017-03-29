@@ -43,12 +43,16 @@ import com.netsteadfast.base.SysMsgConstants;
 import com.netsteadfast.base.exception.ServiceException;
 import com.netsteadfast.base.model.DefaultResult;
 import com.netsteadfast.base.model.YesNo;
+import com.netsteadfast.pine.base.LogEventType;
 import com.netsteadfast.pine.base.PineConfig;
 import com.netsteadfast.pine.server.BrokerServerInterceptHandler;
 import com.netsteadfast.pine.server.ServerUtils;
 import com.netsteadfast.pine.service.IBrokerService;
+import com.netsteadfast.pine.service.IEventLogService;
 import com.netsteadfast.po.PiBroker;
+import com.netsteadfast.po.PiEventLog;
 import com.netsteadfast.vo.BrokerVO;
+import com.netsteadfast.vo.EventLogVO;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -323,6 +327,47 @@ public class BrokerUtils {
 			return false;
 		}
 		return ServerUtils.get(id).isStart();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void checkHistoryStatistics(List<BrokerVO> brokers) {
+		if (null == brokers || brokers.size() < 1) {
+			return;
+		}
+		IEventLogService<EventLogVO, PiEventLog, String> eventLogService = (IEventLogService<EventLogVO, PiEventLog, String>)
+				AppContext.getBean("pine.service.EventLogService");
+		for (BrokerVO broker : brokers) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("brokerId", broker.getId());
+			
+			try {
+				paramMap.put("eventType", LogEventType.CONNECT);
+				broker.setLogConnect( eventLogService.countByParams(paramMap) );
+				
+				paramMap.put("eventType", LogEventType.CONNECTION_LOST);
+				broker.setLogConnectionLost( eventLogService.countByParams(paramMap) );
+				
+				paramMap.put("eventType", LogEventType.DISCONNECT);
+				broker.setLogDisconnect( eventLogService.countByParams(paramMap) );
+				
+				paramMap.put("eventType", LogEventType.MESSAGE_ACKNOWLEDGED);
+				broker.setLogMessageAcknowledged( eventLogService.countByParams(paramMap) );
+				
+				paramMap.put("eventType", LogEventType.PUBLISH);
+				broker.setLogPublish( eventLogService.countByParams(paramMap) );				
+				
+				paramMap.put("eventType", LogEventType.SUBSCRIBE);
+				broker.setLogSubscribe( eventLogService.countByParams(paramMap) );				
+				
+				paramMap.put("eventType", LogEventType.UNSUBSCRIBE);
+				broker.setLogUnsubscribe( eventLogService.countByParams(paramMap) );								
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			paramMap.clear();
+			paramMap = null;
+		}
 	}
 
 }

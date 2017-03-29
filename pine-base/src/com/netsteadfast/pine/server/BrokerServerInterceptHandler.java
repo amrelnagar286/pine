@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import com.netsteadfast.pine.base.LogEventType;
 import com.netsteadfast.pine.base.PineConfig;
 import com.netsteadfast.util.DataUtils;
 
@@ -53,37 +54,37 @@ public class BrokerServerInterceptHandler implements InterceptHandler {
 
 	@Override
 	public void onConnect(InterceptConnectMessage connectMessage) {
-		this.log2Db( "connect", connectMessage.getClientID(), null, null );
+		this.log2Db( LogEventType.CONNECT, connectMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onConnectionLost(InterceptConnectionLostMessage connectionLostMessage) {
-		this.log2Db( "connectionLost", connectionLostMessage.getClientID(), null, null );
+		this.log2Db( LogEventType.CONNECTION_LOST, connectionLostMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onDisconnect(InterceptDisconnectMessage disconnectMessage) {
-		this.log2Db( "disconnect", disconnectMessage.getClientID(), null, null );
+		this.log2Db( LogEventType.DISCONNECT, disconnectMessage.getClientID(), null, null );
 	}
 
 	@Override
 	public void onMessageAcknowledged(InterceptAcknowledgedMessage acknowledgedMessage) {
-		this.log2Db( "messageAcknowledged", acknowledgedMessage.getMsg().getClientID(), acknowledgedMessage.getMsg().getTopic(), new String(acknowledgedMessage.getMsg().getMessage().array()) );
+		this.log2Db( LogEventType.MESSAGE_ACKNOWLEDGED, acknowledgedMessage.getMsg().getClientID(), acknowledgedMessage.getMsg().getTopic(), new String(acknowledgedMessage.getMsg().getMessage().array()) );
 	}
 
 	@Override
 	public void onPublish(InterceptPublishMessage publishMessage) {
-		this.log2Db( "publish", publishMessage.getClientID(), publishMessage.getTopicName(), new String(publishMessage.getPayload().array()) );
+		this.log2Db( LogEventType.PUBLISH, publishMessage.getClientID(), publishMessage.getTopicName(), new String(publishMessage.getPayload().array()) );
 	}
 
 	@Override
 	public void onSubscribe(InterceptSubscribeMessage subscribeMessage) {
-		this.log2Db( "subscribe", subscribeMessage.getClientID(), subscribeMessage.getTopicFilter(), null );
+		this.log2Db( LogEventType.SUBSCRIBE, subscribeMessage.getClientID(), subscribeMessage.getTopicFilter(), null );
 	}
 
 	@Override
 	public void onUnsubscribe(InterceptUnsubscribeMessage unsubscribeMessage) {
-		this.log2Db( "unsubscribe", unsubscribeMessage.getClientID(), unsubscribeMessage.getTopicFilter(), null );
+		this.log2Db( LogEventType.UNSUBSCRIBE, unsubscribeMessage.getClientID(), unsubscribeMessage.getTopicFilter(), null );
 	}
 
 	public String getBrokerId() {

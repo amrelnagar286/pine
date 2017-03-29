@@ -54,6 +54,29 @@ public class BrokerAction {
 	public void setBrokerService(IBrokerService<BrokerVO, PiBroker, String> brokerService) {
 		this.brokerService = brokerService;
 	}
+	
+	@RequestMapping(value = "historyStatistics.do")
+	public ModelAndView historyStatistics() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject(Constants.PAGE_MESSAGE, "");
+		List<BrokerVO> brokers = null;
+		try {
+			DefaultResult<List<BrokerVO>> bResult = this.brokerService.findSimpleResult();
+			if (bResult.getValue() != null) {
+				brokers = bResult.getValue();
+				BrokerUtils.checkStatus(brokers);
+				BrokerUtils.checkHistoryStatistics(brokers);
+			} else {
+				mv.addObject(Constants.PAGE_MESSAGE, bResult.getSystemMessage().getValue());
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject(Constants.PAGE_MESSAGE, e.getMessage().toString());
+		}
+		mv.setViewName("broker/historyStatistics");
+		mv.addObject("brokers", brokers);
+		return mv;		
+	}
 
 	@RequestMapping(value = "brokerList.do")
 	public ModelAndView list() {

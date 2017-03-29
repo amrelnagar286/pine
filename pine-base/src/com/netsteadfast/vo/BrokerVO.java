@@ -39,6 +39,14 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 	private String start = "";
 	private String found = "";
 	
+	private long logConnect = 0;
+	private long logConnectionLost = 0;
+	private long logDisconnect = 0;
+	private long logMessageAcknowledged = 0;
+	private long logPublish = 0;
+	private long logSubscribe = 0;
+	private long logUnsubscribe = 0;
+	
 	public BrokerVO() {
 		
 	}
@@ -143,6 +151,62 @@ public class BrokerVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setFound(String found) {
 		this.found = found;
+	}
+
+	public long getLogConnect() {
+		return logConnect;
+	}
+
+	public void setLogConnect(long logConnect) {
+		this.logConnect = logConnect;
+	}
+
+	public long getLogConnectionLost() {
+		return logConnectionLost;
+	}
+
+	public void setLogConnectionLost(long logConnectionLost) {
+		this.logConnectionLost = logConnectionLost;
+	}
+
+	public long getLogDisconnect() {
+		return logDisconnect;
+	}
+
+	public void setLogDisconnect(long logDisconnect) {
+		this.logDisconnect = logDisconnect;
+	}
+
+	public long getLogMessageAcknowledged() {
+		return logMessageAcknowledged;
+	}
+
+	public void setLogMessageAcknowledged(long logMessageAcknowledged) {
+		this.logMessageAcknowledged = logMessageAcknowledged;
+	}
+
+	public long getLogPublish() {
+		return logPublish;
+	}
+
+	public void setLogPublish(long logPublish) {
+		this.logPublish = logPublish;
+	}
+
+	public long getLogSubscribe() {
+		return logSubscribe;
+	}
+
+	public void setLogSubscribe(long logSubscribe) {
+		this.logSubscribe = logSubscribe;
+	}
+
+	public long getLogUnsubscribe() {
+		return logUnsubscribe;
+	}
+
+	public void setLogUnsubscribe(long logUnsubscribe) {
+		this.logUnsubscribe = logUnsubscribe;
 	}
 	
 }
