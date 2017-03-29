@@ -21,9 +21,15 @@
  */
 package com.netsteadfast.pine.dao;
 
+import java.util.List;
+
 import com.netsteadfast.base.dao.IBaseDAO;
 import com.netsteadfast.po.PiEventLog;
 
 public interface IEventLogDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<PiEventLog, String> {
+	
+	public List<PiEventLog> findLastLogList() throws Exception;
+	
+	public int deleteAll() throws Exception;
 
 }

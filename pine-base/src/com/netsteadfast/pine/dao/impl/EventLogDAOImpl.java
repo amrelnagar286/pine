@@ -21,13 +21,30 @@
  */
 package com.netsteadfast.pine.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.base.dao.BaseDAO;
+import com.netsteadfast.pine.base.PineConstants;
 import com.netsteadfast.pine.dao.IEventLogDAO;
 import com.netsteadfast.po.PiEventLog;
 
 @Repository("pine.dao.EventLogDAO")
 public class EventLogDAOImpl extends BaseDAO<PiEventLog, String> implements IEventLogDAO<PiEventLog, String> {
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PiEventLog> findLastLogList() throws Exception {
+		return this.getCurrentSession()
+				.createQuery(" FROM PiEventLog a ORDER BY a.cdate DESC ")
+				.setMaxResults( PineConstants.MAX_SHOW_LOG_RECORD_SIZE )
+				.list();
+	}
+
+	@Override
+	public int deleteAll() throws Exception {
+		return this.getCurrentSession().createQuery("delete from PiEventLog").executeUpdate();
+	}
+	
 }

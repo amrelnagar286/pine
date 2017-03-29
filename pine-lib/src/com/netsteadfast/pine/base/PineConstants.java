@@ -27,4 +27,6 @@ public class PineConstants {
 	
 	public static final int MAX_PUBLISH_JOB_SIZE = 50;
 	
+	public static final int MAX_SHOW_LOG_RECORD_SIZE = 100;
+	
 }
