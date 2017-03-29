@@ -17,6 +17,16 @@ Pine demo project, a test IoT project use MQTT ( moquette https://github.com/and
 <img src="https://raw.githubusercontent.com/billchen198318/pine/master/pine-doc/pic/003.png">
 
 
+<b>Broker history statistics</b>
+<br>
+<img src="https://raw.githubusercontent.com/billchen198318/pine/master/pine-doc/pic/005.png">
+
+<b>Log view</b>
+<br>
+<img src="https://raw.githubusercontent.com/billchen198318/pine/master/pine-doc/pic/004.png">
+
+<br>
+<br>
 
 <b>Demo server</b>
 ```JAVA
